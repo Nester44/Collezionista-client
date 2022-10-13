@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className="container">
-        { 5 > 12 ? <h1>Login</h1> : <h2>Reg</h2>}
+        <h1>Login</h1>
         <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
         <input type="text" value={password} onChange={e => setPassword(e.target.value)} placeholder="password" />
         <button onClick={loginHandler}>Login</button>

@@ -1,8 +1,9 @@
 import axios from 'axios'
 
 const API = axios.create({
-  baseURL: 'http://localhost:1337',
-  withCredentials: true
+  baseURL: 'https://collectionmanagementnodejs.azurewebsites.net',
+  withCredentials: true,
+  crossDomain: true
 })
 
 export const getUser = async (id) => {

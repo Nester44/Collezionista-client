@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import AppRoutes from './common/routes/AppRoutes';
 import { checkAuth } from './slices/auth-slice';
 import { useDispatch } from 'react-redux';
@@ -20,9 +20,9 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <AppRoutes />
-      </BrowserRouter>
+      </HashRouter>
     </div >
   );
 }

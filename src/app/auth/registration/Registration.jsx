@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-// import { register } from '../../../shared/api/api'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import routes from '../../../shared/constants/routes'
+import { register } from '../../../slices/auth-slice'
 
 const Login = () => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
 
-  const regisrationHandler = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
+  const regisrationHandler = async() => {
+    await dispatch(register({email, password, name}))
+    navigate(routes.HOME)
   }
 
   return (
