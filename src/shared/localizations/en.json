@@ -1,4 +1,6 @@
 {
+  "locale.en": "EN",
+  "locale.ru": "RU",
   "app.home.title": "Home",
   "app.login.title": "Login",
   "app.login.noAccount": "Don't have an account?",
@@ -13,5 +15,9 @@
   "app.registration.loginLink": "Login",
   "app.registration.linkToHome": "Home",
   "app.registration.button.loading": "Loading",
-  "app.registration.button": "Create account"
+  "app.registration.button": "Create account",
+  "app.registration.nameLengthError": "Name length should be between 3 and 20 symbols",
+  "app.registration.nameUniqueError": "User with that name already exists",
+  "app.registartion.emailUniqueError": "User with that email already exists",
+  "app.registartion.emailValidError": "Email is invalid"
 }

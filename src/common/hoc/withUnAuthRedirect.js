@@ -1,8 +1,8 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { isAuthSelector, isCheckedSelector } from '../../slices/auth-slice'
 import routes from '../../shared/constants/routes'
+import { isAuthSelector, isCheckedSelector } from '../../app/auth/auth-slice'
 
 const withUnAuthRedirect = (Component) => (props) => {
   const isAuth = useSelector(isAuthSelector)

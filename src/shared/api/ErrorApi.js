@@ -1,5 +1,5 @@
 class AuthError extends Error {
-  constructor(name, id) {
+  constructor(id, name = 'Error') {
     super(name)
     this.id = id
   }

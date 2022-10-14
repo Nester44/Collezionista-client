@@ -6,10 +6,10 @@ import { LoadingButton } from '@mui/lab'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { login } from '../../slices/auth-slice'
 import routes from '../../shared/constants/routes'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { login } from '../../app/auth/auth-slice'
 
 
 

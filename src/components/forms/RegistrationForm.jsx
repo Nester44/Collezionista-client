@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import * as yup from 'yup'
-import { useFormik, Form, FormikProvider } from 'formik'
-import { Alert, Box, Icon, IconButton, InputAdornment, TextField } from '@mui/material'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { LoadingButton } from '@mui/lab'
+import { Alert, Box, IconButton, InputAdornment, TextField } from '@mui/material'
+import { Form, FormikProvider, useFormik } from 'formik'
+import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { login, register } from '../../slices/auth-slice'
+import * as yup from 'yup'
+import { register } from '../../app/auth/auth-slice'
 import routes from '../../shared/constants/routes'
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 
 
@@ -26,7 +26,6 @@ const LoginForm = () => {
       await dispatch(register(values))
       navigate(routes.HOME)
     } catch (error) {
-      debugger
       setStatus(error.id)
     }
   }

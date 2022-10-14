@@ -1,14 +1,16 @@
-import './App.css';
-import React, { useState, useEffect } from 'react'
-import { HashRouter } from "react-router-dom";
+import { Box, createTheme, ThemeProvider } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { IntlProvider } from "react-intl";
-import AppRoutes from './common/routes/AppRoutes';
-import { checkAuth } from './slices/auth-slice';
-import { useDispatch } from 'react-redux';
-import messages_en from './shared/localizations/en.json'
-import messages_ru from './shared/localizations/ru.json'
+import { useDispatch, useSelector } from 'react-redux';
+import { HashRouter } from "react-router-dom";
+import './App.css';
+import { localeSelector, modeSelector } from './app/appSlice';
+import { checkAuth } from './app/auth/auth-slice';
 import Header from './app/header/Header';
-import { Box, Container, createTheme, ThemeProvider } from '@mui/material';
+import ProfileDrawer from './common/ProfileDrawer/ProfileDrawer';
+import AppRoutes from './common/routes/AppRoutes';
+import messages_en from './shared/localizations/en.json';
+import messages_ru from './shared/localizations/ru.json';
 
 const lightTheme = createTheme({
   palette: {
@@ -39,8 +41,8 @@ const messages = {
 }
 
 function App() {
-  const [language, setLanguage] = useState(localStorage.getItem('locale') || 'en')
-  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light')
+  const locale = useSelector(localeSelector)
+  const mode = useSelector(modeSelector)
 
   const theme = themes[mode]
 
@@ -56,11 +58,16 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <IntlProvider locale={language} messages={messages[language]}>
+      <IntlProvider locale={locale} messages={messages[locale]}>
         <HashRouter>
           <Box className="App" sx={{ background: theme.palette.background.paper, height: '100vh' }}>
-            <Header setLanguage={setLanguage} setTheme={setMode} theme={mode} language={language} />
+
+            <Header />
+
             <AppRoutes />
+
+            <ProfileDrawer />
+
           </ Box>
         </HashRouter>
       </IntlProvider>

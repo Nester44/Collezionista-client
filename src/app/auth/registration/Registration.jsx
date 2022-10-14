@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import {Link} from '@mui/material'
 import { Link as RouterLink} from 'react-router-dom'
 import routes from '../../../shared/constants/routes'
-import RegistrationForm from '../../../common/forms/RegistrationForm'
+import RegistrationForm from '../../../components/forms/RegistrationForm'
 
 const Login = () => {
   const theme = useTheme()

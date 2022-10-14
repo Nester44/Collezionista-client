@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import AuthAPI from '../shared/api/authAPI'
-import AuthError from '../shared/api/ErrorApi'
+import AuthAPI from '../../shared/api/authAPI'
+import AuthError from '../../shared/api/ErrorApi'
 
 const initialState = {
   user: null,
@@ -29,6 +29,7 @@ export const register = createAsyncThunk(
       const response = await AuthAPI.register(password, email, name)
       return response.data
     } catch (error) {
+      debugger;
       return thunkAPI.rejectWithValue(error)
     }
 
@@ -61,6 +62,13 @@ export const authSlice = createSlice({
         state.user = action.payload
         state.isAuth = true
       })
+      .addCase(register.rejected, (state, action) => {
+        if (action.payload?.response?.status === 500) {
+          const messageId = action.payload.response.data.message
+          throw new AuthError(messageId)
+        }
+        throw AuthError.UnexpectedError()
+      })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload
         state.isAuth = true
@@ -70,7 +78,6 @@ export const authSlice = createSlice({
           throw AuthError.IncorrectData()
         }
         throw AuthError.UnexpectedError()
-
       })
 
       .addCase(checkAuth.fulfilled, (state, action) => {
@@ -91,6 +98,7 @@ export const authSlice = createSlice({
 
 // export { } = authSlice.actions
 
+export const nameSelector = (state) => state.auth.user?.name
 export const isAuthSelector = (state) => state.auth.isAuth
 export const isCheckedSelector = (state) => state.auth.isChecked
 

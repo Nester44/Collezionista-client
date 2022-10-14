@@ -1,7 +1,7 @@
 import { Container, Divider, Link, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import LoginForm from '../../../common/forms/LoginForm';
+import LoginForm from '../../../components/forms/LoginForm';
 import routes from '../../../shared/constants/routes';
 import { Link as RouterLink } from 'react-router-dom';
 

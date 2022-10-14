@@ -1,4 +1,6 @@
 {
+  "locale.en": "Англ",
+  "locale.ru": "Рус",
   "app.home.title": "Главная",
   "app.login.title": "Логин",
   "app.login.noAccount": "Нет аккаунта?",
@@ -13,5 +15,9 @@
   "app.registration.loginLink": "Войти",
   "app.registration.linkToHome": "На главную",
   "app.registration.button.loading": "Загрузка...",
-  "app.registration.button": "Создать аккаунт"
+  "app.registration.button": "Создать аккаунт",
+  "app.registration.nameLengthError": "Имя должно быть длины от 3-ех до 20-ти символов",
+  "app.registration.nameUniqueError": "Это имя уже занято",
+  "app.registartion.emailUniqueError": "Эта почта уже занята",
+  "app.registartion.emailValidError": "Невалидная почта"
 }

@@ -3,8 +3,8 @@ import withUnAuthRedirect from '../../common/hoc/withUnAuthRedirect'
 import { useNavigate } from 'react-router-dom'
 import routes from '../../shared/constants/routes'
 import { useDispatch } from 'react-redux'
-import { logout } from '../../slices/auth-slice'
 import { FormattedMessage } from 'react-intl'
+import { logout } from '../auth/auth-slice'
 
 const Home = () => {
   const dispatch = useDispatch()
