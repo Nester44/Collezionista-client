@@ -1,31 +1,43 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useTheme } from '@emotion/react'
+import { Container, Divider, Typography } from '@mui/material'
+import React from 'react'
+import { FormattedMessage } from 'react-intl'
+import {Link} from '@mui/material'
+import { Link as RouterLink} from 'react-router-dom'
 import routes from '../../../shared/constants/routes'
-import { register } from '../../../slices/auth-slice'
+import RegistrationForm from '../../../common/forms/RegistrationForm'
 
 const Login = () => {
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  const regisrationHandler = async() => {
-    await dispatch(register({email, password, name}))
-    navigate(routes.HOME)
-  }
+  const theme = useTheme()
 
   return (
-    <div className="container">
-      <h1>Register</h1>
-       <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="name" />
-       <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
-        <input type="text" value={password} onChange={e => setPassword(e.target.value)} placeholder="password" />
-         <button onClick={regisrationHandler}>Register</button>
-         <p>Don't have an account? <Link to={routes.LOGIN}>Log in</Link></p>
-       </div>
+    <Container maxWidth="sm"
+     sx={{ height: '80vh', display: 'flex', justifyContent:'center',
+      flexDirection:'column', gap: '1rem'}}
+    >
+        <Typography variant='h2'><FormattedMessage id='app.registration.title'/></Typography>
+        
+        <RegistrationForm />
+
+        <Divider />
+
+        <Typography variant='subtitle1'>
+          <FormattedMessage id='app.registration.haveAccount' />
+
+          {' '}
+
+          <Link component={RouterLink} to={routes.LOGIN} >
+            <FormattedMessage id='app.registration.loginLink' />
+          </Link>
+          
+        </Typography>
+
+        <Link component={RouterLink} to={routes.HOME} >
+          <Typography variant="link">
+            <FormattedMessage id='app.registration.linkToHome' sx={{color: theme.palette.primary.main}} />
+          </Typography>
+        </Link>
+    </Container>
   )
 }
 

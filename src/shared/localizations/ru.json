@@ -3,5 +3,15 @@
   "app.login.title": "Логин",
   "app.login.noAccount": "Нет аккаунта?",
   "app.login.createAccount": "Регистрация",
-  "app.login.linkToHome": "На главную"
+  "app.login.linkToHome": "На главную",
+  "app.login.button.loading": "Загрузка...",
+  "app.login.button": "Войти",
+  "app.login.wrongPassword": "Неправильный пароль или почта",
+  "app.login.unexpectedError": "Непредвиденная ошибка",
+  "app.registration.title": "Регистрация",
+  "app.registration.haveAccount": "Уже зарегистрированы?",
+  "app.registration.loginLink": "Войти",
+  "app.registration.linkToHome": "На главную",
+  "app.registration.button.loading": "Загрузка...",
+  "app.registration.button": "Создать аккаунт"
 }

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import AuthAPI from '../shared/api/authAPI'
+import AuthError from '../shared/api/ErrorApi'
 
 const initialState = {
   user: null,
@@ -65,11 +66,10 @@ export const authSlice = createSlice({
         state.isAuth = true
       })
       .addCase(login.rejected, (state, action) => {
-        if (action.payload.response.status === 401) {
-          state.error = 'Wrong combination of email and password'
-        } else {
-          state.error = 'Unexpected error'
+        if (action.payload?.response?.status === 401) {
+          throw AuthError.IncorrectData()
         }
+        throw AuthError.UnexpectedError()
 
       })
 

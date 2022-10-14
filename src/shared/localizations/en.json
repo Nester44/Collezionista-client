@@ -3,5 +3,15 @@
   "app.login.title": "Login",
   "app.login.noAccount": "Don't have an account?",
   "app.login.createAccount": "Registration",
-  "app.login.linkToHome": "Home"
+  "app.login.linkToHome": "Home",
+  "app.login.button.loading": "Loading...",
+  "app.login.button": "Log in",
+  "app.login.wrongPassword": "Wrong combination of email and password",
+  "app.login.unexpectedError": "Unexpected Error",
+  "app.registration.title": "Registration",
+  "app.registration.haveAccount": "Already have an account?",
+  "app.registration.loginLink": "Login",
+  "app.registration.linkToHome": "Home",
+  "app.registration.button.loading": "Loading",
+  "app.registration.button": "Create account"
 }
