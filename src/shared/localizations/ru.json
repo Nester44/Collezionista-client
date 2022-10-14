@@ -1,0 +1,7 @@
+{
+  "app.home.title": "Главная",
+  "app.login.title": "Логин",
+  "app.login.noAccount": "Нет аккаунта?",
+  "app.login.createAccount": "Регистрация",
+  "app.login.linkToHome": "На главную"
+}

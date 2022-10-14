@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import routes from '../../shared/constants/routes'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../slices/auth-slice'
+import { FormattedMessage } from 'react-intl'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -15,7 +16,9 @@ const Home = () => {
 
   return (
     <div>
-      <h2>Home</h2>
+      <h2>
+        <FormattedMessage id='app.home.title'/>
+      </h2>
       <button onClick={logoutHandler} > Log out</button>
     </div>
   )
