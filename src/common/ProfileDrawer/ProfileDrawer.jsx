@@ -2,7 +2,7 @@ import { Box, Button, Drawer } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { isDrawerOpenSelector, toggleDrawer } from '../../app/appSlice'
-import { isAuthSelector, nameSelector } from '../../app/auth/auth-slice'
+import { isAuthSelector, logout, nameSelector } from '../../app/auth/auth-slice'
 import LocaleToggle from '../../components/ui/LocaleToggle/LocaleToggle'
 import ModeToggle from '../../components/ui/ModeToggle.js/ModeToggle'
 
@@ -12,6 +12,11 @@ const ProfileDrawer = () => {
   const dispatch = useDispatch()
 
   const isDrawerOpen = useSelector(isDrawerOpenSelector)
+
+  const logoutHandler = () => {
+    dispatch(logout())
+    dispatch(toggleDrawer())
+  }
 
   return (
     <Drawer
@@ -25,9 +30,11 @@ const ProfileDrawer = () => {
 
         <LocaleToggle />
         <ModeToggle />
-        <Button>
-          log  out
-        </Button>
+        {isAuth &&
+          <Button onClick={logoutHandler}>
+            log  out
+          </Button>
+        }
       </Box>
 
     </Drawer>

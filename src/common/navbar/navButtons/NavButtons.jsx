@@ -1,11 +1,13 @@
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import { IconButton } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { isAuthSelector } from '../../../app/auth/auth-slice';
+import AccountButton from '../../../components/ui/Burger/AccountButton/AccountButton';
 import LocaleToggle from '../../../components/ui/LocaleToggle/LocaleToggle';
 import ModeToggle from '../../../components/ui/ModeToggle.js/ModeToggle';
 
 const NavButtons = () => {
+  const isAuth = useSelector(isAuthSelector)
   return (
     <Box sx={{
       display: { xs: 'none', sm: "flex" },
@@ -15,9 +17,9 @@ const NavButtons = () => {
     >
       <LocaleToggle />
       <ModeToggle />
-      <IconButton>
-        <AccountBoxIcon />
-      </IconButton>
+
+      { isAuth && <AccountButton />}
+      
     </Box>
   )
 }
