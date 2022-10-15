@@ -26,7 +26,6 @@ export const createCollection = createAsyncThunk(
       const response = await CollectionAPI.create(user_id, name, description, topic)
       return response.data
     } catch (error) {
-      debugger
       return rejectWithValue(error)
     }
   }
@@ -53,15 +52,16 @@ const profileSlice = createSlice({
       })
 
       .addCase(createCollection.fulfilled, (state, action) => {
-        debugger;
+        state.user.collections.push(action.payload)
       })
-      .addCase(createCollection.rejected, (state, action) => {
-        debugger;
+      .addCase(createCollection.rejected, () => {
+        throw new Error('Something went wrong')
       })
   }
 })
 
-export const userSelector = (state) => state.profile?.user
+export const profileSelector = (state) => state.profile?.user
+export const profileIdSelector = (state) => state.profile?.user?.id
 export const isFetchingSelector = (state) => state.profile?.isFetching
 
 export default profileSlice.reducer

@@ -5,9 +5,10 @@ import React, { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { currentUserSelector } from '../auth/auth-slice'
 import CollectionDialog from './CollectionDialog/CollectionDialog'
 import CollectionItem from './CollectionItem/CollectionItem'
-import { getUser, isFetchingSelector, userSelector } from './profileSlice'
+import { getUser, isFetchingSelector, profileSelector } from './profileSlice'
 
 const Profile = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -22,8 +23,10 @@ const Profile = () => {
     setModalOpen(false);
   };
 
+  const currentUser = useSelector(currentUserSelector)
+
   const isFetching = useSelector(isFetchingSelector)
-  const user = useSelector(userSelector)
+  const userProfile = useSelector(profileSelector)
 
   useEffect(() => {
     const fetchUser = async (id) => {
@@ -36,29 +39,38 @@ const Profile = () => {
 
   if (isFetching) return <CircularProgress />
 
-  const collectionsElements = user?.collections?.map(item => <CollectionItem key={'collection' + item.id} name={item.name} description={item.description} topic={item.topic} />)
+  
+  if (!userProfile) return <Typography variant="h2">User doesn't exist</Typography>
+  const canManage = (userProfile.id === currentUser?.id) || currentUser?.admin
+  
+  const collectionsElements = userProfile?.collections?.map(item => 
+  <CollectionItem key={'collection' + item.id} name={item.name} description={item.description} topic={item.topic} canManage={canManage} />)
+  
+
 
   return (
     <Container >
       <Typography variant="h2">
-        {user?.name}
+        {userProfile?.name}
       </Typography>
 
       <Divider />
       
-      <Box sx={{
-          marginTop: 1,
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          paddingLeft: 2
-        }}>
-        <Button variant="contained" color="primary" size='large'
-          onClick={handleClickOpen}
-        >
-          <FormattedMessage id="app.profile.collection.newCollection" />
-        </Button>
-      </Box>
+      {canManage && 
+            <Box sx={{
+              marginTop: 1,
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              paddingLeft: 2
+            }}>
+            <Button variant="contained" color="primary" size='large'
+              onClick={handleClickOpen}
+            >
+              <FormattedMessage id="app.profile.collection.newCollection" />
+            </Button>
+          </Box>
+          }
 
       <Box my={1}>
         <Paper elevation={3} sx={{

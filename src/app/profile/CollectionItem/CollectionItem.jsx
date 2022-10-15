@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 
 const img = 'https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2luZXN8ZW58MHx8MHx8&w=1000&q=80'
 
-const CollectionItem = ({ name, description, topic }) => {
+const CollectionItem = ({ name, description, topic, canManage }) => {
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card raised >
@@ -27,11 +27,14 @@ const CollectionItem = ({ name, description, topic }) => {
             {description}
           </Typography>
         </CardContent>
-        <CardActions sx={{ justifyContent: 'end' }} >
-          <Button size='small' color='error' >
-            <FormattedMessage id='app.profile.collection.delete' />
-          </Button>
-        </CardActions>
+        { canManage && 
+          <CardActions sx={{ justifyContent: 'end' }} >
+            <Button size='small' color='error' >
+              <FormattedMessage id='app.profile.collection.delete' />
+            </Button>
+          </CardActions>
+        }
+        
       </Card>
     </Grid>
   )

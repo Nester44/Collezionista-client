@@ -1,10 +1,10 @@
-import React from 'react'
-import { Box, Button, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
+import { Alert, Box, Button, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { Form, FormikProvider, useFormik } from 'formik'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
-import {useDispatch, useSelector} from 'react-redux'
-import { createCollection } from '../../app/profile/profileSlice'
-import { userIdSelector } from '../../app/auth/auth-slice'
+import { createCollection, profileIdSelector, profileSelector } from '../../app/profile/profileSlice'
 
 const CollectionForm = ({ onClose }) => {
   const dispatch = useDispatch()
@@ -19,13 +19,15 @@ const CollectionForm = ({ onClose }) => {
       .string()
       .required()
   })
-  const user_id = useSelector(userIdSelector)
+  const user_id = useSelector(profileIdSelector)
 
-  const onSubmit = async ({name, description, topic}) => {
-    console.log('Submitted: ', {name, description, topic, user_id})
-    dispatch(createCollection({name, description, topic, user_id}))
-
-    onClose()
+  const onSubmit = async ({name, description, topic}, {setStatus}) => {
+    try {
+      await dispatch(createCollection({name, description, topic, user_id}))
+      onClose()
+    } catch (error) {
+      setStatus(error.message)
+    }
   }
 
   const formik = useFormik({
@@ -44,6 +46,7 @@ const CollectionForm = ({ onClose }) => {
     handleSubmit,
     getFieldProps,
     status,
+    isSubmitting
   } = formik;
 
 
@@ -97,18 +100,18 @@ const CollectionForm = ({ onClose }) => {
               label='Description'
               fullWidth
             />
-
-
-
+            <Box>
+              {!!status && <Alert severity='error'>{status}</Alert>}
+            </Box>
           </DialogContent>
 
           <DialogActions>
             <Button onClick={onClose} color='error'>
               Cancel
             </Button>
-            <Button type='submit' >
+            <LoadingButton type='submit' loading={isSubmitting}>
               Create
-            </Button>
+            </LoadingButton>
           </DialogActions>
 
         </Box>
