@@ -2,7 +2,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { isAuthSelector } from '../../../app/auth/auth-slice';
-import AccountButton from '../../../components/ui/Burger/AccountButton/AccountButton';
+import AccountButton from '../../../components/ui/AccountButton/AccountButton';
 import LocaleToggle from '../../../components/ui/LocaleToggle/LocaleToggle';
 import ModeToggle from '../../../components/ui/ModeToggle.js/ModeToggle';
 

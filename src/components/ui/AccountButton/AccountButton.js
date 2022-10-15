@@ -1,8 +1,10 @@
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { logout } from '../../../../app/auth/auth-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout, userIdSelector } from '../../../app/auth/auth-slice';
+import routes from '../../../shared/constants/routes';
 
 
 const AccountButton = () => {
@@ -14,13 +16,18 @@ const AccountButton = () => {
   const handleClose = () => {
     setAnchorEl(null);
   }
-
+  const navigate = useNavigate()
+  const profileRedirect = () => {
+    navigate(routes.USER + userId)
+    handleClose()
+  }
   const logoutHandler = () => {
     handleClose()
     dispatch(logout())
   }
-
   const dispatch = useDispatch()
+
+  const userId = useSelector(userIdSelector)
 
 
   return (
@@ -44,7 +51,7 @@ const AccountButton = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={profileRedirect}>Profile</MenuItem>
         <MenuItem onClick={logoutHandler}>Logout</MenuItem>
       </Menu>
     </>

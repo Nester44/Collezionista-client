@@ -9,10 +9,4 @@ const API = axios.create({
   crossDomain: true
 })
 
-export const getUser = async (id) => {
-  const response = await API.get(`/users/${id}`)
-
-  return (response)
-}
-
 export default API

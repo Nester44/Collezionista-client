@@ -26,7 +26,6 @@ const LoginForm = () => {
       await dispatch(login(values))
       navigate(routes.HOME)
     } catch (error) {
-      debugger
       setStatus(error.id)
     }
   }

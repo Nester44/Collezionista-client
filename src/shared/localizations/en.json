@@ -1,4 +1,6 @@
 {
+  "app.profile.collection.delete": "delete",
+  "app.profile.collection.newCollection": "New collection",
   "locale.en": "EN",
   "locale.ru": "RU",
   "app.home.title": "Home",

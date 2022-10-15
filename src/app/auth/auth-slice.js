@@ -96,8 +96,8 @@ export const authSlice = createSlice({
   }
 })
 
-// export { } = authSlice.actions
-
+export const currentUserSelector = (state) => state.auth.user
+export const userIdSelector = (state) => state.auth.user?.id
 export const nameSelector = (state) => state.auth.user?.name
 export const isAuthSelector = (state) => state.auth.isAuth
 export const isCheckedSelector = (state) => state.auth.isChecked
