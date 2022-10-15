@@ -1,14 +1,14 @@
 import { Box, createTheme, ThemeProvider } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { IntlProvider } from "react-intl";
 import { useDispatch, useSelector } from 'react-redux';
 import { HashRouter } from "react-router-dom";
 import './App.css';
 import { localeSelector, modeSelector } from './app/appSlice';
 import { checkAuth } from './app/auth/auth-slice';
-import Header from './app/header/Header';
 import ProfileDrawer from './common/ProfileDrawer/ProfileDrawer';
 import AppRoutes from './common/routes/AppRoutes';
+import Header from './components/header/Header';
 import messages_en from './shared/localizations/en.json';
 import messages_ru from './shared/localizations/ru.json';
 
@@ -60,7 +60,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <IntlProvider locale={locale} messages={messages[locale]}>
         <HashRouter>
-          <Box className="App" sx={{ background: theme.palette.background.paper, height: '100vh' }}>
+          <Box className="App" sx={{ background: theme.palette.background.paper, height: '100vh', overflowY: 'scroll' }}>
 
             <Header />
 
