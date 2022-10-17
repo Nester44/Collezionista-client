@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import * as yup from 'yup'
-import { useFormik, Form, FormikProvider} from 'formik'
-import { Alert, Box, Icon, IconButton, InputAdornment, TextField } from '@mui/material'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { LoadingButton } from '@mui/lab'
+import { Alert, Box, IconButton, InputAdornment, TextField } from '@mui/material'
+import { Form, FormikProvider, useFormik } from 'formik'
+import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import * as yup from 'yup'
+import { login, userIdSelector } from '../../app/auth/auth-slice'
 import routes from '../../shared/constants/routes'
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { login } from '../../app/auth/auth-slice'
 
 
 
@@ -23,8 +23,10 @@ const LoginForm = () => {
 
   const onSubmit = async(values, { setStatus }) => {
     try {
-      await dispatch(login(values))
-      navigate(routes.HOME)
+      const dispatchedAction = await dispatch(login(values))
+      const currentUserId = dispatchedAction.payload.id
+
+      navigate(routes.USER + currentUserId)
     } catch (error) {
       setStatus(error.id)
     }
