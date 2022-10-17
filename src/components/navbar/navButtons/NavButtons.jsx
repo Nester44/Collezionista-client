@@ -2,9 +2,9 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { isAuthSelector } from '../../../app/auth/auth-slice';
-import AccountButton from '../../../components/ui/AccountButton/AccountButton';
-import LocaleToggle from '../../../components/ui/LocaleToggle/LocaleToggle';
-import ModeToggle from '../../../components/ui/ModeToggle.js/ModeToggle';
+import AccountButton from '../../ui/AccountButton/AccountButton';
+import LocaleToggle from '../../ui/LocaleToggle/LocaleToggle';
+import ModeToggle from '../../ui/ModeToggle.js/ModeToggle';
 
 const NavButtons = () => {
   const isAuth = useSelector(isAuthSelector)

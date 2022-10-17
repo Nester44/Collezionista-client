@@ -1,8 +1,8 @@
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import React from 'react';
-import NavBar from '../../common/navbar/NavBar';
 import { Link } from 'react-router-dom';
 import routes from '../../shared/constants/routes';
+import NavBar from '../navbar/NavBar';
 
 
 const Header = () => {

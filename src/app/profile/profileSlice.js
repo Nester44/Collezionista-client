@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import CollectionAPI from "../../shared/api/collectionAPI"
 import userAPI from "../../shared/api/userAPI"
+import uuidv4 from "../../shared/uuid"
+
 
 const initialState = {
   user: null,
@@ -21,10 +23,23 @@ export const getUser = createAsyncThunk(
 
 export const createCollection = createAsyncThunk(
   'profile/createCollection',
-  async ({ user_id, name, description, topic }, { rejectWithValue }) => {
+  async ({ user_id, name, description, topic, image }, { rejectWithValue }) => {
     try {
-      const response = await CollectionAPI.create(user_id, name, description, topic)
+      const response = await CollectionAPI.create(user_id, name, description, topic, image)
       return response.data
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const deleteCollection = createAsyncThunk(
+  'profile/deleteCollection',
+  async (collection_id, { rejectWithValue }) => {
+    try {
+      const response = await CollectionAPI.delete(collection_id)
+      return { ...response.data, deletedId: collection_id }
     } catch (error) {
       return rejectWithValue(error)
     }
@@ -56,6 +71,13 @@ const profileSlice = createSlice({
       })
       .addCase(createCollection.rejected, () => {
         throw new Error('Something went wrong')
+      })
+
+      .addCase(deleteCollection.fulfilled, (state, action) => {
+        state.user.collections = state.user.collections.filter(c => c.id !== action.payload.deletedId)
+      })
+      .addCase(deleteCollection.rejected, (state, action) => {
+        debugger
       })
   }
 })
