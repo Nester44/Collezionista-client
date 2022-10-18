@@ -23,8 +23,10 @@ const LoginForm = () => {
 
   const onSubmit = async (values, { setStatus }) => {
     try {
-      await dispatch(register(values))
-      navigate(routes.HOME)
+      const dispatchedAction = await dispatch(register(values))
+      const currentUserId = dispatchedAction.payload.id
+
+      navigate(routes.USER + currentUserId)
     } catch (error) {
       setStatus(error.id)
     }

@@ -5,10 +5,10 @@ import { Alert, Box, IconButton, InputAdornment, TextField } from '@mui/material
 import { Form, FormikProvider, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
-import { login, userIdSelector } from '../../app/auth/auth-slice'
+import { login } from '../../app/auth/auth-slice'
 import routes from '../../shared/constants/routes'
 
 

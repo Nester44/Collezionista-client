@@ -6,15 +6,17 @@ import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { createCollection, profileIdSelector } from '../../app/profile/profileSlice'
+import topics from '../../shared/constants/topics'
+
+const additionalFieldTypes = [
+  { id: 'app.profile.collectionForm.additionalFieldType.integer', value: 'integer' },
+  { id: 'app.profile.collectionForm.additionalFieldType.string', value: 'string' },
+  { id: 'app.profile.collectionForm.additionalFieldType.checkbox', value: 'checkbox' },
+  { id: 'app.profile.collectionForm.additionalFieldType.date', value: 'date' },
+  { id: 'app.profile.collectionForm.additionalFieldType.multiLine', value: 'multiLine' },
+]
 
 const CollectionForm = ({ onClose, onSnackOpen }) => {
-  const FILE_SIZE = 5 * 1024 * 1024;
-  const SUPPORTED_FORMATS = [
-    "image/jpg",
-    "image/jpeg",
-    "image/png"
-  ];
-
   const dispatch = useDispatch()
   const CollectionSchema = yup.object().shape({
     name: yup
@@ -27,17 +29,9 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
       .string()
       .required(),
     image: yup
-      .mixed()
-    // .test(
-    //   "fileSize",
-    //   "File too large",
-    //   value => value && value.size <= FILE_SIZE
-    // )
-    // .test(
-    //   "fileFormat",
-    //   "Unsupported Format",
-    //   value => value && SUPPORTED_FORMATS.includes(value.type)
-    // )
+      .mixed(),
+    additionalFieldType: yup
+      .string()
   })
 
   const [imageName, setImageName] = useState(null)
@@ -65,7 +59,8 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
       name: '',
       description: '',
       topic: '',
-      image: null
+      image: null,
+      additionalFieldType: ''
     },
     validationSchema: CollectionSchema,
     onSubmit
@@ -111,21 +106,17 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
               fullWidth
               label='Topic'
             >
-              <MenuItem value='wine' >
-                <FormattedMessage id='app.profile.collectionForm.topic.wine' />
-              </MenuItem>
-              <MenuItem value='books' >
-                <FormattedMessage id='app.profile.collectionForm.topic.boooks' />
-              </MenuItem>
-              <MenuItem value='signs' >
-                <FormattedMessage id='app.profile.collectionForm.topic.signs' />
-              </MenuItem>
-              <MenuItem value='coins' >
-                <FormattedMessage id='app.profile.collectionForm.topic.coins' />
-              </MenuItem>
-              <MenuItem value='rocks' >
-                <FormattedMessage id='app.profile.collectionForm.topic.rocks' />
-              </MenuItem>
+              {
+                topics.map(option =>
+                  <MenuItem
+                    key={option.id}
+                    value={option.id} >
+                    <FormattedMessage
+                      key={option.id + 'topicMsg'}
+                      id={option.id} />
+                  </MenuItem>)
+              }
+
             </TextField>
 
             <TextField
@@ -140,6 +131,26 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
               label='Description'
               fullWidth
             />
+
+            <TextField
+              select
+              {...getFieldProps('additionalFieldType')}
+              error={Boolean((touched.additionalFieldType && errors.additionalFieldType) || Boolean(status))}
+              helperText={touched.additionalFieldType && errors.additionalFieldType}
+              id='additionalFieldType'
+              name='additionalFieldType'
+              margin='dense'
+              fullWidth
+              label='Additional fields type (optional)'
+            >
+              {
+                additionalFieldTypes.map(option =>
+                  <MenuItem key={additionalFieldTypes.indexOf(option) + 'menu'} value={option.value} >
+                    <FormattedMessage key={additionalFieldTypes.indexOf(option) + 'msg'} id={option.id} />
+                  </MenuItem>)
+              }
+
+            </TextField>
 
             <InputLabel sx={{ marginTop: 2, marginBottom: 2 }}>
               <FormattedMessage id='app.profile.modal.upload' />
@@ -157,6 +168,8 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
 
             {imageName && imageName}
 
+
+
             <Box>
               {!!status && <Alert severity='error'>{status}</Alert>}
             </Box>
@@ -173,7 +186,7 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
 
         </Box>
       </Form>
-    </FormikProvider>
+    </FormikProvider >
 
 
   )
