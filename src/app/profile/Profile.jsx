@@ -1,15 +1,18 @@
-import { Alert, Box, Button, CircularProgress, Divider, Grid, Paper, Snackbar } from '@mui/material'
+import { Box, Button, CircularProgress, Divider, Grid, Paper } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Container } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import AdminPanel from '../../components/ui/AdminPanel/AdminPanel'
 import SnackbarSuccess from '../../components/ui/Snackbars/SnackbarSuccess'
 import { currentUserSelector } from '../auth/auth-slice'
 import CollectionDialog from './CollectionDialog/CollectionDialog'
 import CollectionItem from './CollectionItem/CollectionItem'
+import CollectionList from './CollectionList/CollectionList'
 import { deleteCollection, getUser, isFetchingSelector, profileSelector } from './profileSlice'
+import ProfileStatus from './ProfileStatus/ProfileStatus'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -50,10 +53,14 @@ const Profile = () => {
 
 
   if (!userProfile) return <Typography variant="h2">User doesn't exist</Typography>
+
+  if (userProfile?.deleted) return <Typography variant="h2">User deleted</Typography>
+
   const canManage = (userProfile.id === currentUser?.id) || currentUser?.admin
 
   const collectionsElements = userProfile?.collections?.map(collection =>
     <CollectionItem 
+      id={collection.id}
       key={'collection' + collection.id}
       name={collection.name}
       description={collection.description}
@@ -71,14 +78,20 @@ const Profile = () => {
         {userProfile?.name}
       </Typography>
 
+      <ProfileStatus userProfile={userProfile} />
+
+      { 
+        currentUser?.admin &&
+       <AdminPanel id={userProfile?.id} />
+      }
+
       <Divider />
 
-      {canManage &&
+      { 
+        canManage &&
         <Box sx={{
           marginTop: 1,
           display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
           paddingLeft: 2
         }}>
           <Button variant="contained" color="primary" size='large'
@@ -89,24 +102,7 @@ const Profile = () => {
         </Box>
       }
 
-      <Box my={1}>
-        <Paper elevation={3} sx={{
-          padding: 2,
-        }}>
-          {
-            collectionsElements.length > 0 ?
-              <Grid
-              container
-              spacing={3}
-              >
-                {collectionsElements}
-              </Grid> :
-              <Typography>There is no collections</Typography>
-          }
-
-
-        </Paper>
-      </Box>
+    <CollectionList collectionsElements={collectionsElements} />
 
     <CollectionDialog onSnackOpen={handleClickOpenCreateSnack} open={modalOpen} onClose={handleCloseModal} />
      
