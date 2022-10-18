@@ -37,7 +37,7 @@ class CollectionAPI {
   }
 
   async updateCollection(collection) {
-    const response = await API.put('/collections/edit/description', { collection })
+    const response = await API.put('/collections/edit/', { collection })
     return response;
   }
 }
