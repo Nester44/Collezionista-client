@@ -1,25 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import CollectionAPI from "../../shared/api/collectionAPI"
 import userAPI from "../../shared/api/userAPI"
-import uuidv4 from "../../shared/uuid"
+import createAsyncThunkWithId from "../../shared/factory/createAsyncThunkId"
 
 
 const initialState = {
   user: null,
   isFetching: false
 }
-
-export const getUser = createAsyncThunk(
-  'profile/getUser',
-  async (id, { rejectWithValue }) => {
-    try {
-      const response = await userAPI.getUser(id)
-      return response.data
-    } catch (error) {
-      return rejectWithValue(error)
-    }
-  }
-)
 
 export const createCollection = createAsyncThunk(
   'profile/createCollection',
@@ -45,6 +33,16 @@ export const deleteCollection = createAsyncThunk(
     }
   }
 )
+
+export const getUser = createAsyncThunkWithId('profile/getUser', userAPI.getUser)
+
+// admin rights
+export const makeAdmin = createAsyncThunkWithId('profile/makeAdmin', userAPI.makeAdmin)
+export const removeAdmin = createAsyncThunkWithId('profile/removeAdmin', userAPI.removeAdmin)
+export const blockUser = createAsyncThunkWithId('profile/blockUser', userAPI.block)
+export const unblockUser = createAsyncThunkWithId('profile/unblockUser', userAPI.unblock)
+export const deleteUserById = createAsyncThunkWithId('profile/deleteUserById', userAPI.delete)
+
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -77,6 +75,41 @@ const profileSlice = createSlice({
         state.user.collections = state.user.collections.filter(c => c.id !== action.payload.deletedId)
       })
       .addCase(deleteCollection.rejected, (state, action) => {
+        debugger
+      })
+
+      .addCase(makeAdmin.fulfilled, (state, action) => {
+        state.user.admin = true
+      })
+      .addCase(makeAdmin.rejected, (state, action) => {
+        debugger
+      })
+
+      .addCase(removeAdmin.fulfilled, (state, action) => {
+        state.user.admin = false
+      })
+      .addCase(removeAdmin.rejected, (state, action) => {
+        debugger
+      })
+
+      .addCase(blockUser.fulfilled, (state, action) => {
+        state.user.blocked = true
+      })
+      .addCase(blockUser.rejected, (state, action) => {
+        debugger
+      })
+
+      .addCase(unblockUser.fulfilled, (state, action) => {
+        state.user.blocked = false
+      })
+      .addCase(unblockUser.rejected, (state, action) => {
+        debugger
+      })
+
+      .addCase(deleteUserById.fulfilled, (state, action) => {
+        state.user = null
+      })
+      .addCase(deleteUserById.rejected, (state, action) => {
         debugger
       })
   }
