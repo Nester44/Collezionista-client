@@ -1,4 +1,4 @@
-import { Button, Paper, TextField, Typography } from '@mui/material'
+import { Grid, Paper, Typography } from '@mui/material'
 import { Box, Container } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,7 +7,6 @@ import { currentUserSelector } from '../auth/auth-slice'
 import { collectionSelector, editDescription, getCollection, updateCollection } from './collectionSlice'
 import Description from './Description/Description'
 import CollectionName from './Name/CollectionName'
-import { FormattedMessage } from 'react-intl'
 import Topic from './Topic/Topic'
 
 const zaglushka = 'https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2luZXN8ZW58MHx8MHx8&w=1000&q=80'
@@ -59,12 +58,6 @@ const Collection = () => {
     userFeatures.sx.cursor = 'pointer'
   }
 
-  const changeDescription = () => {
-    setIsEditing(false)
-    if (description === collection.description) return // Exit the function if description without changes
-    dispatch(editDescription({ id: collection.id, description }))
-  }
-
   const editCollection = () => {
     setIsEditing(false)
     const newCollection = {description, topic, name, id: collection.id}
@@ -76,8 +69,21 @@ const Collection = () => {
   return (
     <Container>
       <Box my={2}>
-        <Paper elevation={2} sx={{ p: 2 }}>
+        <Box component={Paper} elevation={2} p={4}>
+        <Grid container spacing={4}>
+        <Grid 
+            item
+            xs={12}
+            md={4}
+        >
+          <img
+            style={{maxWidth: '100%'}}
+            src={collection.image || zaglushka} alt='collectionImage'
+            >
+          </img>
+        </Grid>
 
+        <Grid item xs={12} md={8}>
           <CollectionName
             name={name}
             isEditing={isEditing}
@@ -88,18 +94,7 @@ const Collection = () => {
 
           <Topic topic={topic}  setTopic={setTopic} isEditing={isEditing} userFeatures={userFeatures} />
 
-          <Box
-            my={2}
-            mx='auto'
-            sx={{maxWidth: { xs: '100%', sm: '50%', md: '40%' }}}
-            component='img'
-            src={collection.image || zaglushka} alt='collectionImage'
-          >
-            {/* <img
-              style={{ width: '100%', height: '100%' }}
-              src={collection.image || zaglushka} alt='collectionImage'
-            /> */}
-          </Box>
+
 
           <Description
             isEditing={isEditing}
@@ -110,8 +105,11 @@ const Collection = () => {
             onChange={(e) => setDescription(e.currentTarget.value)}
             turnEditing={() => setIsEditing(true)}
           />
+        </Grid>
 
-        </Paper>
+        </Grid>
+        </Box>
+
       </Box>
     </Container>
   )

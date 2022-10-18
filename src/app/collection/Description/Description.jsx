@@ -11,6 +11,7 @@ const Description = ({ isEditing, description, changeDescription, userFeatures, 
             label='Description'
             multiline
             fullWidth
+            margin='normal'
             value={description}
             onChange={onChange}
           />
