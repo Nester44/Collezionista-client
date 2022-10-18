@@ -8,6 +8,7 @@ import { collectionSelector, editDescription, getCollection, updateCollection } 
 import Description from './Description/Description'
 import CollectionName from './Name/CollectionName'
 import Topic from './Topic/Topic'
+import styles from './Collection.module.css'
 
 const zaglushka = 'https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2luZXN8ZW58MHx8MHx8&w=1000&q=80'
 
@@ -68,8 +69,8 @@ const Collection = () => {
   if (!collection) return <Typography>Collection doesn't exist</Typography>
   return (
     <Container>
-      <Box my={2}>
-        <Box component={Paper} elevation={2} p={4}>
+      <Box my={2} >
+        <Box component={Paper} elevation={2} p={4} >
         <Grid container spacing={4}>
         <Grid 
             item

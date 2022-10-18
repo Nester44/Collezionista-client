@@ -16,13 +16,16 @@ const CollectionName = ({ name, editProps, isEditing, onChange, userFeatures }) 
   }
 
   return (
-    <Typography
-      {...userFeatures}
-      component='span'
-      variant='h4'
-    >
-      {name}
-    </Typography>
+    <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+      <Typography
+        {...userFeatures}
+        component='span'
+        variant='h4'
+      >
+
+        {name}
+      </Typography>
+    </Box>
   )
 }
 

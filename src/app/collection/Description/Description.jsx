@@ -16,12 +16,15 @@ const Description = ({ isEditing, description, changeDescription, userFeatures, 
             onChange={onChange}
           />
           :
-          <Typography
-            {...userFeatures}
-            variant='body1'
-          >
-            {description}
-          </Typography>
+          <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+            <Typography
+              {...userFeatures}
+              variant='body1'
+            >
+              {description}
+            </Typography>
+          </Box>
+
       }
       {
         canEdit &&

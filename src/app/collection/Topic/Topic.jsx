@@ -33,7 +33,7 @@ const Topic = ({ topic, isEditing, setTopic, userFeatures }) => {
 
 
   return (
-    <Box my={4}>
+    <Box my={4} sx={{ textAlign: { xs: 'center', md: 'left' } }} >
     <Typography {...userFeatures} variant='subtitle1'>
       <FormattedMessage id={topic || 'app.profile.collectionForm.topic.books'} />
     </Typography>
