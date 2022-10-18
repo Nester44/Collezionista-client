@@ -17,13 +17,27 @@ class CollectionAPI {
       const imageFile = renameFile(image, `${user_id}AND${name}AND${topic}`)
       formData.append('imgfile', imageFile)
     }
-    debugger;
     const response = await API.post('/collections/new', formData)
     return response;
   }
 
-  async delete(collection_id) {
-    const response = await API.delete(`/collections/${collection_id}`)
+  async delete(id) {
+    const response = await API.delete(`/collections/${id}`)
+    return response;
+  }
+
+  async getCollection(id) {
+    const response = await API.get(`/collections/${id}`)
+    return response;
+  }
+
+  async editDescription(id, description) {
+    const response = await API.put('/collections/edit/description', { id, description })
+    return response;
+  }
+
+  async updateCollection(collection) {
+    const response = await API.put('/collections/edit/description', { collection })
     return response;
   }
 }
