@@ -4,7 +4,7 @@ import React from 'react'
 import AttributesAccordion from './AttributesAccordeon/AttributesAccordeon'
 import Tag from './Tag/Tag'
 
-const Item = ({ name, tags, fields, type, onDelete }) => {
+const Item = ({ name, tags, fields, type, onDelete, canEdit }) => {
   let attributes
   try {
     attributes = JSON.parse(fields)
@@ -30,21 +30,18 @@ const Item = ({ name, tags, fields, type, onDelete }) => {
             </Box>
 
             {
-              fields?.length > 0 &&
+              attributes &&
               <Box>
                 <AttributesAccordion fields={attributes} type={type} />
               </Box>
             }
 
-
           </Box>
-
-
 
         </CardContent>
         <Box component={CardActions} justifyContent='end' >
           <Button>More</Button>
-          <Button color='error' onClick={onDelete} >Delete</Button>
+          {canEdit && <Button color='error' onClick={onDelete} >Delete</Button>} 
         </Box>
       </Card>
     </Grid>

@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { currentUserSelector } from '../auth/auth-slice'
-import { collectionSelector, deleteItem, getCollection, updateCollection } from './collectionSlice'
+import { collectionSelector, createItem, deleteItem, getCollection, updateCollection } from './collectionSlice'
 import Description from './Description/Description'
+import ItemDialog from './ItemDialog/ItemDialog'
+import ItemPanel from './ItemPanel/ItemPanel'
 import ItemsList from './ItemsList/ItemsList'
 import CollectionName from './Name/CollectionName'
 import Topic from './Topic/Topic'
@@ -32,6 +34,8 @@ const Collection = () => {
   const [name, setName] = useState()
   const [topic, setTopic] = useState()
   const [description, setDescription] = useState()
+
+  const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     const fetchCollection = async () => {
@@ -60,6 +64,11 @@ const Collection = () => {
     const newCollection = {description, topic, name, id: collection.id}
     if (checkChanges(collection, newCollection)) return null // nothing has changed
     dispatch(updateCollection(newCollection))
+  }
+
+  const makeItem = async(name, tags, attributes) => {
+    await dispatch(createItem({ collectionId, name, tags, attributes }))
+    setModalOpen(false)
   }
 
   if (!collection) return <Typography>Collection doesn't exist</Typography>
@@ -112,13 +121,18 @@ const Collection = () => {
             <Grid item xs={12}>
 
             <Divider variant='middle' sx={{ marginBottom: 4 }} />
-                <ItemsList items={collection?.Items} attributeType={collection?.additional_attributes_type} />
+
+                <ItemPanel onOpenModal={() => setModalOpen(true)} />
+                <ItemsList items={collection?.Items} attributeType={collection?.additional_attributes_type} canEdit={canEdit} />
             </Grid>
 
             </Grid>
         </Box>
 
       </Box>
+
+      <ItemDialog createItem={makeItem} open={modalOpen} attributeType={collection?.additional_attributes_type} onClose={() => setModalOpen(false)} />
+
     </Container>
   )
 }

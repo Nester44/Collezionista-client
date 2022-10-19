@@ -75,8 +75,6 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
     isSubmitting
   } = formik;
 
-
-
   return (
     <FormikProvider value={formik} >
       <Form onSubmit={handleSubmit} autoComplete='off' >

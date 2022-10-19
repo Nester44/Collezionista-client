@@ -5,20 +5,7 @@ import { deleteItem } from '../collectionSlice'
 import Item from './Item/Item'
 
 
-const fieldsCheckbox = [
-  { label: 'Restaurated', value: true },
-  { label: 'New', value: false },
-  { label: 'Van gogh\'s art', value: true },
-]
-
-const fieldsText = [
-  { label: 'Restaurated', value: 'true' },
-  { label: 'New', value: 'false' },
-  { label: 'Van gogh\'s art', value: 'true' },
-]
-
-const ItemsList = ({ items, attributeType }) => {
-  console.log(attributeType);
+const ItemsList = ({ items, attributeType, canEdit }) => {
   const dispatch = useDispatch()
 
   const destroyItem = (id) => {
@@ -26,12 +13,8 @@ const ItemsList = ({ items, attributeType }) => {
   }
 
   const itemsElements = items?.map(i => 
-    <Item key={'item' + i.id} name={i.name} tags={i.Tags} fields={i.additional_attributes} type={attributeType} />
+    <Item key={'item' + i.id} name={i.name} canEdit={canEdit} tags={i.Tags} fields={i.additional_attributes} type={attributeType} onDelete={() => destroyItem(i.id)} />
   )
-
-  // const itemsElements = items?.map(i => 
-  //   <Item key={'item' + i.id} name={i.name} tags={i.Tags} type={attributeType} onDelete={() => destroyItem(i.id)} />
-  // )
 
   return (
     <Grid container spacing={2}>

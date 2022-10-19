@@ -5,7 +5,8 @@ import createAsyncThunkWithId from "../../shared/factory/createAsyncThunkId"
 
 const initialState = {
   collection: null,
-  isFetching: false
+  isFetching: false,
+  tags: [],
 }
 
 export const getCollection = createAsyncThunkWithId('collection/getCollection', collectionAPI.getCollection)
@@ -34,7 +35,21 @@ export const updateCollection = createAsyncThunk(
   }
 )
 
+export const createItem = createAsyncThunk(
+  'collection/createItem',
+  async ({ collectionId, name, tags, attributes }, { rejectWithValue }) => {
+    try {
+      const response = await ItemAPI.create(collectionId, name, tags, attributes)
+      return response.data
+    } catch (error) {
+      rejectWithValue(error)
+    }
+  }
+)
+
 export const deleteItem = createAsyncThunkWithId('collection/deleteItem', ItemAPI.delete)
+
+export const fetchTags = createAsyncThunkWithId('collection/fetchTags', ItemAPI.getTags)
 
 const collectionSlice = createSlice({
   name: 'collection',
@@ -67,9 +82,19 @@ const collectionSlice = createSlice({
         state.collection.Items =
           state.collection.Items.filter(i => i.id !== deletedId)
       })
+
+      .addCase(fetchTags.fulfilled, (state, action) => {
+        state.tags = action.payload.map((tag) => tag.name)
+      })
+
+      .addCase(createItem.fulfilled, (state, action) => {
+        debugger;
+        state.collection.Items.push(action.payload)
+      })
   }
 })
 
 export const collectionSelector = (state) => state.collection.collection
+export const tagsSelector = (state) => state.tags
 
 export default collectionSlice.reducer
