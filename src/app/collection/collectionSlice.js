@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import collectionAPI from "../../shared/api/collectionAPI"
+import ItemAPI from "../../shared/api/itemAPI"
 import createAsyncThunkWithId from "../../shared/factory/createAsyncThunkId"
 
 const initialState = {
@@ -33,6 +34,8 @@ export const updateCollection = createAsyncThunk(
   }
 )
 
+export const deleteItem = createAsyncThunkWithId('collection/deleteItem', ItemAPI.delete)
+
 const collectionSlice = createSlice({
   name: 'collection',
   initialState,
@@ -57,6 +60,12 @@ const collectionSlice = createSlice({
 
       .addCase(updateCollection.fulfilled, (state, action) => {
         state.collection = action.payload
+      })
+
+      .addCase(deleteItem.fulfilled, (state, action) => {
+        const deletedId = Number(action.payload.deletedId)
+        state.collection.Items =
+          state.collection.Items.filter(i => i.id !== deletedId)
       })
   }
 })

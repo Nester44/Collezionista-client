@@ -44,9 +44,9 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
 
   const user_id = useSelector(profileIdSelector)
 
-  const onSubmit = async ({ name, description, topic, image }, { setStatus }) => {
+  const onSubmit = async ({ name, description, topic, image, additionalFieldType }, { setStatus }) => {
     try {
-      await dispatch(createCollection({ name, description, topic, user_id, image }))
+      await dispatch(createCollection({ name, description, topic, user_id, image, additionalFieldType }))
       onSnackOpen()
       onClose()
     } catch (error) {

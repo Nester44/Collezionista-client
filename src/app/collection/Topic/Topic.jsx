@@ -7,7 +7,6 @@ import topics from '../../../shared/constants/topics'
 
 const Topic = ({ topic, isEditing, setTopic, userFeatures }) => {
   if (isEditing) return (
-    <Box sx={{ textAlign: 'left' }}>
       <TextField
         select
         fullWidth
@@ -28,16 +27,13 @@ const Topic = ({ topic, isEditing, setTopic, userFeatures }) => {
         }
 
       </TextField>
-    </Box>
   )
 
 
   return (
-    <Box my={4} sx={{ textAlign: { xs: 'center', md: 'left' } }} >
-    <Typography {...userFeatures} variant='subtitle1'>
+    <Typography color='text.secondary' my={4} {...userFeatures} variant='subtitle1'>
       <FormattedMessage id={topic || 'app.profile.collectionForm.topic.books'} />
     </Typography>
-    </Box>
   )
 }
 

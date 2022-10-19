@@ -11,16 +11,75 @@ import Header from './components/header/Header';
 import ProfileDrawer from './components/ProfileDrawer/ProfileDrawer';
 import messages_en from './shared/localizations/en.json';
 import messages_ru from './shared/localizations/ru.json';
+import { purple, red, orange, yellow, green, blue, indigo } from '@mui/material/colors';
+
 
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
+
+    purple: {
+      main: purple[900],
+      contrastText: '#333',
+    },
+    red: {
+      main: red[900],
+      contrastText: '#333',
+    },
+    orange: {
+      main: orange[900],
+      contrastText: '#333',
+    },
+    yellow: {
+      main: yellow[900],
+      contrastText: '#333',
+    },
+    green: {
+      main: green[900],
+      contrastText: '#333',
+    },
+    blue: {
+      main: blue[900],
+      contrastText: '#333',
+    },
+    indigo: {
+      main: indigo[900],
+      contrastText: '#333',
+    }
   }
 })
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark'
+    mode: 'dark',
+    purple: {
+      main: purple[300],
+      contrastText: '#fff',
+    },
+    red: {
+      main: red[300],
+      contrastText: '#fff',
+    },
+    orange: {
+      main: orange[300],
+      contrastText: '#fff',
+    },
+    yellow: {
+      main: yellow[300],
+      contrastText: '#fff',
+    },
+    green: {
+      main: green[300],
+      contrastText: '#fff',
+    },
+    blue: {
+      main: blue[300],
+      contrastText: '#fff',
+    },
+    indigo: {
+      main: indigo[300],
+      contrastText: '#fff',
+    }
   },
   typography: {
     allVariants: {

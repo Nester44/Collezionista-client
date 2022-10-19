@@ -11,9 +11,9 @@ const initialState = {
 
 export const createCollection = createAsyncThunk(
   'profile/createCollection',
-  async ({ user_id, name, description, topic, image }, { rejectWithValue }) => {
+  async ({ user_id, name, description, topic, image, additionalFieldType }, { rejectWithValue }) => {
     try {
-      const response = await CollectionAPI.create(user_id, name, description, topic, image)
+      const response = await CollectionAPI.create(user_id, name, description, topic, image, additionalFieldType)
       return response.data
     } catch (error) {
       console.log(error);

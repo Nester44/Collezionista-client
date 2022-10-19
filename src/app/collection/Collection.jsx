@@ -1,20 +1,16 @@
-import { Grid, Paper, Typography } from '@mui/material'
+import { Divider, Grid, Paper, Typography } from '@mui/material'
 import { Box, Container } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { currentUserSelector } from '../auth/auth-slice'
-import { collectionSelector, editDescription, getCollection, updateCollection } from './collectionSlice'
+import { collectionSelector, deleteItem, getCollection, updateCollection } from './collectionSlice'
 import Description from './Description/Description'
+import ItemsList from './ItemsList/ItemsList'
 import CollectionName from './Name/CollectionName'
 import Topic from './Topic/Topic'
-import styles from './Collection.module.css'
 
 const zaglushka = 'https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2luZXN8ZW58MHx8MHx8&w=1000&q=80'
-
-const editProps = {
-  cursor: 'pointer'
-}
 
 const checkChanges = (collection, newCollection) => {
   return (
@@ -62,7 +58,7 @@ const Collection = () => {
   const editCollection = () => {
     setIsEditing(false)
     const newCollection = {description, topic, name, id: collection.id}
-    if (checkChanges(collection, newCollection)) return null// nothing has changed
+    if (checkChanges(collection, newCollection)) return null // nothing has changed
     dispatch(updateCollection(newCollection))
   }
 
@@ -71,44 +67,55 @@ const Collection = () => {
     <Container>
       <Box my={2} >
         <Box component={Paper} elevation={2} p={4} >
-        <Grid container spacing={4}>
-        <Grid 
-            item
-            xs={12}
-            md={4}
-        >
-          <img
-            style={{maxWidth: '100%'}}
-            src={collection.image || zaglushka} alt='collectionImage'
+          <Grid container spacing={4}>
+            <Grid 
+                item
+                xs={12}
+                md={4}
             >
-          </img>
-        </Grid>
+              <img
+                style={{maxWidth: '100%'}}
+                src={collection.image || zaglushka} alt='collectionImage'
+                >
+              </img>
+            </Grid>
 
-        <Grid item xs={12} md={8}>
-          <CollectionName
-            name={name}
-            isEditing={isEditing}
-            onChange={(e) => { setName(e.currentTarget.value) }}
-            editProps={editProps}
-            userFeatures={userFeatures}
-          />
+            <Grid item xs={12} md={8}>
+              <Box sx={{ textAlign: { xs: 'center', md: 'left' }, wordWrap: 'break-word' }}  >
 
-          <Topic topic={topic}  setTopic={setTopic} isEditing={isEditing} userFeatures={userFeatures} />
+                <CollectionName
+                  name={name}
+                  isEditing={isEditing}
+                  onChange={(e) => { setName(e.currentTarget.value) }}
+                  userFeatures={userFeatures}
+                />
+
+                <Topic topic={topic}  setTopic={setTopic} isEditing={isEditing} userFeatures={userFeatures} />
 
 
 
-          <Description
-            isEditing={isEditing}
-            description={description}
-            changeDescription={editCollection}
-            userFeatures={userFeatures}
-            canEdit={canEdit}
-            onChange={(e) => setDescription(e.currentTarget.value)}
-            turnEditing={() => setIsEditing(true)}
-          />
-        </Grid>
+                <Description
+                  isEditing={isEditing}
+                  description={description}
+                  changeDescription={editCollection}
+                  userFeatures={userFeatures}
+                  canEdit={canEdit}
+                  onChange={(e) => setDescription(e.currentTarget.value)}
+                  turnEditing={() => setIsEditing(true)}
+                />
 
-        </Grid>
+              </Box>
+            </Grid>
+
+            
+
+            <Grid item xs={12}>
+
+            <Divider variant='middle' sx={{ marginBottom: 4 }} />
+                <ItemsList items={collection?.Items} attributeType={collection?.additional_attributes_type} />
+            </Grid>
+
+            </Grid>
         </Box>
 
       </Box>

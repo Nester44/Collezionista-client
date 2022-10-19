@@ -6,12 +6,13 @@ const renameFile = (originalFile, newName) => {
 }
 
 class CollectionAPI {
-  async create(user_id, name, description, topic, image) {
+  async create(user_id, name, description, topic, image, additionalFieldType) {
     const formData = new FormData()
     formData.append('user_id', user_id)
     formData.append('name', name)
     formData.append('description', description)
     formData.append('topic', topic)
+    formData.append('additionalFieldType', additionalFieldType)
 
     if (image) {
       const imageFile = renameFile(image, `${user_id}AND${name}AND${topic}`)
