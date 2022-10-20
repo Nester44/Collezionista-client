@@ -109,7 +109,7 @@ const Collection = () => {
                   changeDescription={editCollection}
                   userFeatures={userFeatures}
                   canEdit={canEdit}
-                  onChange={(e) => setDescription(e.currentTarget.value)}
+                  onChange={(value) => setDescription(value)}
                   turnEditing={() => setIsEditing(true)}
                 />
 

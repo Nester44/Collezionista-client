@@ -1,28 +1,31 @@
-import { Button, TextField, Typography } from '@mui/material'
-import { Box } from '@mui/system'
-import React from 'react'
+import { Button, useTheme } from '@mui/material';
+import { Box } from '@mui/system';
+import MDEditor from "@uiw/react-md-editor";
+import React from 'react';
+import styles from './Description.module.css';
 
 const Description = ({ isEditing, description, changeDescription, userFeatures, onChange, turnEditing, canEdit }) => {
+  const theme = useTheme()
+  const mode = theme.palette.mode 
+  
   return (
-    <Box>
+    <Box data-color-mode={mode} >
       {
-        isEditing ?
-          <TextField
+          isEditing ?
+          <MDEditor
+            height={400}
+            className={styles.editor}
             label='Description'
-            multiline
-            fullWidth
             margin='normal'
             value={description}
             onChange={onChange}
           />
           :
-            <Typography
-              {...userFeatures}
-              variant='body1'
-            >
-              {description}
-            </Typography>
-
+            <MDEditor.Markdown
+            style={{ backgroundColor: 'inherit' }}
+            source={description}
+            linkTarget="_blank"
+          />
       }
       {
         canEdit &&
