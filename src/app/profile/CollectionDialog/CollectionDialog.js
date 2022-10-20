@@ -5,7 +5,7 @@ import CollectionForm from '../../../components/forms/CollectionForm'
 
 const CollectionDialog = ({ open, onClose, onSnackOpen }) => {
   return (
-    <Dialog open={open} onClose={onClose} >
+    <Dialog fullWidth open={open} onClose={onClose} >
       <DialogTitle>
         <FormattedMessage id='app.profile.collection.newCollection' />
       </DialogTitle>

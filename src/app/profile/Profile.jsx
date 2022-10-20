@@ -11,6 +11,7 @@ import { currentUserSelector } from '../auth/auth-slice'
 import CollectionDialog from './CollectionDialog/CollectionDialog'
 import CollectionItem from './CollectionItem/CollectionItem'
 import CollectionList from './CollectionList/CollectionList'
+import ProfilePanel from './ProfilePanel/ProfilePanel'
 import { deleteCollection, getUser, isFetchingSelector, profileSelector } from './profileSlice'
 import ProfileStatus from './ProfileStatus/ProfileStatus'
 
@@ -89,17 +90,7 @@ const Profile = () => {
 
       { 
         canManage &&
-        <Box sx={{
-          marginTop: 1,
-          display: 'flex',
-          paddingLeft: 2
-        }}>
-          <Button variant="contained" color="primary" size='large'
-            onClick={handleClickOpenModal}
-          >
-            <FormattedMessage id="app.profile.collection.newCollection" />
-          </Button>
-        </Box>
+        <ProfilePanel handleClickOpenModal={handleClickOpenModal} />
       }
 
     <CollectionList collectionsElements={collectionsElements} />

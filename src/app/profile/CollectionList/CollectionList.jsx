@@ -4,7 +4,7 @@ import React from 'react'
 
 const CollectionList = ({collectionsElements}) => {
   return (
-    <Box my={1}>
+    <Box mb={1}>
     <Paper elevation={3} sx={{
       padding: 2,
     }}>
