@@ -75,7 +75,7 @@ const Collection = () => {
   return (
     <Container>
       <Box my={2} >
-        <Box component={Paper} elevation={2} p={4} >
+        <Box component={Paper} elevation={2} p={{ xs: 2, md: 4}} >
           <Grid container spacing={4}>
             <Grid 
                 item
