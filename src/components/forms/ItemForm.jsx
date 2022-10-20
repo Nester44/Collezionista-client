@@ -4,28 +4,71 @@ import { Box } from '@mui/system'
 import { Form, FormikProvider, useFormik } from 'formik'
 import React, { useState } from 'react'
 import * as yup from 'yup'
-
 import { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch } from 'react-redux'
 import { fetchTags } from '../../app/collection/collectionSlice'
 import ItemAutoComplete from '../ui/ItemAutoComplete/ItemAutoComplete'
+import AdditionalFields from './AdditionalFields/AdditionalFields'
 
-const ItemForm = ({ onClose, createItem }) => {
+const validations = {
+  'checkbox': yup.boolean() ,
+  'integer': yup.number(),
+  'string': yup.string(),
+  'date': yup.date(),
+  'multiline': yup.string(),
+}
+
+const ItemForm = ({ onClose, createItem, attributeType }) => {
   const dispatch = useDispatch()
   const ItemSchema = yup.object().shape({
     name: yup
       .string()
       .required(),
     tags: yup
-      .array()
+      .array(),
+      
+    firstLabel: yup
+      .string()
+      .required(),
+
+    secondLabel: yup
+      .string()
+      .required(),
+
+    thirdLabel: yup
+      .string()
+      .required(),
+
+    firstValue: validations[attributeType]
+    .required(),
+    secondValue: validations[attributeType]
+    .required(),
+    thirdValue: validations[attributeType]
+    .required()
   })
   const [tags, setTags] = useState([])
 
-  const onSubmit = ({ name, tags, attributes }) => {
+  const onSubmit = (data) => {
+    const {
+        name,
+        tags,
+        firstLabel,
+        firstValue,
+        secondLabel,
+        secondValue,
+        thirdLabel,
+        thirdValue
+     } = data
+
+     const attributes = [
+      {label: firstLabel, value: firstValue},
+      {label: secondLabel, value: secondValue},
+      {label: thirdLabel, value: thirdValue},
+     ]
+
     createItem(name, tags, attributes)
   }
-
 
   useEffect(() => {
     const getTags = async () => {
@@ -42,6 +85,14 @@ const ItemForm = ({ onClose, createItem }) => {
     initialValues: {
       name: '',
       tags: '',
+      
+      firstLabel: '',
+      secondLabel: '',
+      thirdLabel: '',
+
+      firstValue: '',
+      secondValue: '',
+      thirdValue: '',
     },
     validationSchema: ItemSchema,
     onSubmit
@@ -54,7 +105,6 @@ const ItemForm = ({ onClose, createItem }) => {
     getFieldProps,
     status,
     isSubmitting,
-    handleChange,
     setFieldValue
   } = formik;
 
@@ -84,6 +134,17 @@ const ItemForm = ({ onClose, createItem }) => {
               status={status}
               errors={errors}
             />
+
+            {
+              attributeType &&
+              <AdditionalFields
+                errors={errors}
+                touched={touched}
+                setFieldValue={setFieldValue}
+                type={attributeType}
+                getFieldProps={getFieldProps}
+              />
+            } 
           </Box>
         </DialogContent>
 
@@ -91,7 +152,7 @@ const ItemForm = ({ onClose, createItem }) => {
           <Button onClick={onClose} color='error'>
             <FormattedMessage id='app.profile.modal.cancel' />
           </Button>
-          <LoadingButton type='submit' >
+          <LoadingButton loading={isSubmitting} type='submit' >
             <FormattedMessage id='app.profile.modal.create' />
           </LoadingButton>
         </DialogActions>

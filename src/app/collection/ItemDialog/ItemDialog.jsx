@@ -13,7 +13,7 @@ const ItemDialog = ({ open, onClose, attributeType, createItem }) => {
         <FormattedMessage id='app.collection.newItem' />
       </DialogTitle>
 
-      <ItemForm createItem={createItem} onClose={onClose} />
+      <ItemForm createItem={createItem} onClose={onClose} attributeType={attributeType} />
 
 
     </Dialog>

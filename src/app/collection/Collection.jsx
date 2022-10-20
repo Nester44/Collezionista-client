@@ -122,7 +122,7 @@ const Collection = () => {
 
             <Divider variant='middle' sx={{ marginBottom: 4 }} />
 
-                <ItemPanel onOpenModal={() => setModalOpen(true)} />
+                {canEdit && <ItemPanel onOpenModal={() => setModalOpen(true)} />}
                 <ItemsList items={collection?.Items} attributeType={collection?.additional_attributes_type} canEdit={canEdit} />
             </Grid>
 

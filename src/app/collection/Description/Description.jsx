@@ -30,7 +30,7 @@ const Description = ({ isEditing, description, changeDescription, userFeatures, 
           mt={2}
           sx={{
             display: 'flex',
-            justifyContent: 'end'
+            justifyContent: {xs: 'center', sm: 'end'}
           }}
         >
           {

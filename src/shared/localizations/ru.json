@@ -1,4 +1,6 @@
 {
+  "app.collection.newItem": "Создать предмет коллекции",
+  "app.collection.additionalAttributes": "Дополнительные аттрибуты: ",
   "app.profile.collectionForm.topic.wine": "Вино",
   "app.profile.collectionForm.topic.books": "Книги",
   "app.profile.collectionForm.topic.signs": "Значки",

@@ -88,7 +88,6 @@ const collectionSlice = createSlice({
       })
 
       .addCase(createItem.fulfilled, (state, action) => {
-        debugger;
         state.collection.Items.push(action.payload)
       })
   }

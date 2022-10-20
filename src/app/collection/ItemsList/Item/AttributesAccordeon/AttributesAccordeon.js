@@ -5,14 +5,14 @@ import React from 'react'
 import BooleanAttribute from '../../../../../components/ui/Attributes/BooleanAttribute';
 import TextAttribute from '../../../../../components/ui/Attributes/TextAttribute';
 
-const AttributesAccordion = ({ fields, type }) => {
+const AttributesAccordion = ({ fields, type, name }) => {
 
   const Attribute = type === 'checkbox' ? BooleanAttribute : TextAttribute
   let fieldsElements
 
   if (Array.isArray(fields)) {
     fieldsElements = fields.map(f =>
-      <Attribute key={'attribute' + f.label} label={f.label} value={f.value} />
+      <Attribute key={'attribute' + f.label + f.value + name + fields.indexOf(f)} label={f.label} value={f.value} />
     )
   }
 

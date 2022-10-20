@@ -6,7 +6,7 @@ const ProfileStatus = ({ userProfile }) => {
     <>
       {
         userProfile?.admin &&
-        <Typography color='green'>Admin</Typography>
+        <Typography color='success'>Admin</Typography>
       }
       {
         userProfile?.blocked &&

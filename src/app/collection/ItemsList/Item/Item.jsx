@@ -13,7 +13,7 @@ const Item = ({ name, tags, fields, type, onDelete, canEdit }) => {
   }
 
   const tagElements = tags.map(t =>
-    <Tag name={t.name} key={'tag' + t.id} />
+    <Tag name={t.name} key={'tag' + t.id + name} color={t.color} />
   )
 
   return (
@@ -24,15 +24,15 @@ const Item = ({ name, tags, fields, type, onDelete, canEdit }) => {
 
           <Box color='text.secondary' sx={{ textAlign: 'left' }}>
 
-            <Box mb={1}>
-              <Typography mr={1} sx={{ userSelect: 'none' }} component='span' color='inherit' variant="body1">Tags: </Typography>
+            <Box mb={1} sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+              <Typography sx={{ userSelect: 'none' }} component='span' color='inherit' variant="body1">Tags: </Typography>
               {tagElements}
             </Box>
 
             {
               attributes &&
               <Box>
-                <AttributesAccordion fields={attributes} type={type} />
+                <AttributesAccordion name={name} fields={attributes} type={type} />
               </Box>
             }
 
