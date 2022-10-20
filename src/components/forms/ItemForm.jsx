@@ -40,12 +40,12 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
       .string()
       .required(),
 
-    firstValue: validations[attributeType]
-    .required(),
-    secondValue: validations[attributeType]
-    .required(),
-    thirdValue: validations[attributeType]
-    .required()
+    // firstValue: validations[attributeType]
+    // .required(),
+    // secondValue: validations[attributeType]
+    // .required(),
+    // thirdValue: validations[attributeType]
+    // .required()
   })
   const [tags, setTags] = useState([])
 
