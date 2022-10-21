@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab'
-import { Alert, Box, Button, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { Alert, Box, Button, Checkbox, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 import { Form, FormikProvider, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { createCollection, profileIdSelector } from '../../app/profile/profileSlice'
 import topics from '../../shared/constants/topics'
+import NumberSelector from '../ui/NumberSelector/NumberSelector'
 
 const additionalFieldTypes = [
   { id: 'app.profile.collectionForm.additionalFieldType.integer', value: 'integer' },
@@ -14,6 +15,14 @@ const additionalFieldTypes = [
   { id: 'app.profile.collectionForm.additionalFieldType.checkbox', value: 'checkbox' },
   { id: 'app.profile.collectionForm.additionalFieldType.date', value: 'date' },
   { id: 'app.profile.collectionForm.additionalFieldType.multiLine', value: 'multiLine' },
+]
+
+const additionalFields = [
+  ['integer','app.profile.collectionForm.additionalFieldType.integer' ],
+  ['string','app.profile.collectionForm.additionalFieldType.string' ],
+  ['checkbox','app.profile.collectionForm.additionalFieldType.checkbox' ],
+  ['date','app.profile.collectionForm.additionalFieldType.date' ],
+  ['multiLine','app.profile.collectionForm.additionalFieldType.multiLine' ],
 ]
 
 const CollectionForm = ({ onClose, onSnackOpen }) => {
@@ -35,6 +44,7 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
   })
 
   const [imageName, setImageName] = useState(null)
+  const [addAdditionalAttributes, setAddAdditionalAttributes] = useState(false)
 
   const handleUpload = (e) => {
     const image = e.currentTarget.files[0]
@@ -44,9 +54,11 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
 
   const user_id = useSelector(profileIdSelector)
 
-  const onSubmit = async ({ name, description, topic, image, additionalFieldType }, { setStatus }) => {
+
+  const onSubmit = async ({ name, description, topic, image, ...additionalAttributes }, { setStatus }) => {
+    additionalAttributes = addAdditionalAttributes ? additionalAttributes : null
     try {
-      await dispatch(createCollection({ name, description, topic, user_id, image, additionalFieldType }))
+      await dispatch(createCollection({ name, description, topic, user_id, image, additionalAttributes }))
       onSnackOpen()
       onClose()
     } catch (error) {
@@ -60,7 +72,12 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
       description: '',
       topic: '',
       image: null,
-      additionalFieldType: ''
+
+      integer: 0,
+      string: 0,
+      checkbox: 0,
+      date: 0,
+      multiLine: 0,
     },
     validationSchema: CollectionSchema,
     onSubmit
@@ -72,7 +89,9 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
     handleSubmit,
     getFieldProps,
     status,
-    isSubmitting
+    isSubmitting,
+    values,
+    setFieldValue
   } = formik;
 
   return (
@@ -130,25 +149,27 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
               fullWidth
             />
 
-            <TextField
-              select
-              {...getFieldProps('additionalFieldType')}
-              error={Boolean((touched.additionalFieldType && errors.additionalFieldType) || Boolean(status))}
-              helperText={touched.additionalFieldType && errors.additionalFieldType}
-              id='additionalFieldType'
-              name='additionalFieldType'
-              margin='dense'
-              fullWidth
-              label='Additional fields type (optional)'
-            >
-              {
-                additionalFieldTypes.map(option =>
-                  <MenuItem key={additionalFieldTypes.indexOf(option) + 'menu'} value={option.value} >
-                    <FormattedMessage key={additionalFieldTypes.indexOf(option) + 'msg'} id={option.id} />
-                  </MenuItem>)
-              }
+            <Typography>
+              <FormattedMessage id='app.collection.additionalAttributes' />
+              <Checkbox
+                value={addAdditionalAttributes}
+                onChange={(e, value) => setAddAdditionalAttributes(value)} />
+            </Typography>
 
-            </TextField>
+            {
+              addAdditionalAttributes &&
+              <Box>
+                {
+                  
+                  additionalFields.map(([field, id], i) => 
+                    <Box key={id} justifyContent='space-between' alignItems='center' display='flex' >
+                      <FormattedMessage id={id} />
+                      <NumberSelector changeHandler={(value) => setFieldValue(field, value)} margin='dense'  size='small' type='number' min='0' />
+                    </Box>
+                  )
+                }
+              </Box>
+            }
 
             <InputLabel sx={{ marginTop: 2, marginBottom: 2 }}>
               <FormattedMessage id='app.profile.modal.upload' />

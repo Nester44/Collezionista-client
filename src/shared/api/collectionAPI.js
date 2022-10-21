@@ -12,7 +12,7 @@ class CollectionAPI {
     formData.append('name', name)
     formData.append('description', description)
     formData.append('topic', topic)
-    formData.append('additionalFieldType', additionalFieldType)
+    additionalFieldType && formData.append('additionalFieldType', JSON.stringify(additionalFieldType))
 
     if (image) {
       const imageFile = renameFile(image, `${user_id}AND${name}AND${topic}`)
