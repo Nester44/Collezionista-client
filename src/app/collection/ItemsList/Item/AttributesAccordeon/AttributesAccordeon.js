@@ -4,10 +4,17 @@ import { Box } from '@mui/system'
 import React from 'react'
 import BooleanAttribute from '../../../../../components/ui/Attributes/BooleanAttribute';
 import TextAttribute from '../../../../../components/ui/Attributes/TextAttribute';
+import DateAttribute from '../../../../../components/ui/Attributes/DateAttribute';
+
+const attributeComponents = {
+  'checkbox': BooleanAttribute,
+  'string': TextAttribute,
+  'date': DateAttribute
+}
 
 const AttributesAccordion = ({ fields, type, name }) => {
 
-  const Attribute = type === 'checkbox' ? BooleanAttribute : TextAttribute
+  const Attribute = attributeComponents[type]
   let fieldsElements
 
   if (Array.isArray(fields)) {
