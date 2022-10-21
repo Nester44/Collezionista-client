@@ -2,7 +2,7 @@ import { Checkbox } from '@mui/material'
 import React from 'react'
 import { useEffect } from 'react'
 
-const CheckboxTextField = ({ valueName, getFieldProps, setFieldValue, touched, errors }) => {
+const CheckboxField = ({ valueName, getFieldProps, setFieldValue, touched, errors }) => {
   useEffect(() => {
     setFieldValue(valueName, false)
   }, [setFieldValue, valueName])
@@ -18,4 +18,4 @@ const CheckboxTextField = ({ valueName, getFieldProps, setFieldValue, touched, e
   )
 }
 
-export default CheckboxTextField
+export default CheckboxField

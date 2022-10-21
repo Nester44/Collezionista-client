@@ -14,7 +14,7 @@ const attributeComponents = {
 
 const AttributesAccordion = ({ fields, type, name }) => {
 
-  const Attribute = attributeComponents[type]
+  const Attribute = attributeComponents[type] || TextAttribute
   let fieldsElements
 
   if (Array.isArray(fields)) {

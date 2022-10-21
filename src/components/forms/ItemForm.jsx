@@ -27,18 +27,6 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
       .required(),
     tags: yup
       .array(),
-      
-    firstLabel: yup
-      .string()
-      .required(),
-
-    secondLabel: yup
-      .string()
-      .required(),
-
-    thirdLabel: yup
-      .string()
-      .required(),
 
     // firstValue: validations[attributeType]
     // .required(),
@@ -49,53 +37,18 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
   })
   const [tags, setTags] = useState([])
 
-  const onSubmit = (data) => {
-    const {
-        name,
-        tags,
-        firstLabel,
-        firstValue,
-        secondLabel,
-        secondValue,
-        thirdLabel,
-        thirdValue
-     } = data
-
-     const attributes = [
-      {label: firstLabel, value: firstValue},
-      {label: secondLabel, value: secondValue},
-      {label: thirdLabel, value: thirdValue},
-     ]
-
-    createItem(name, tags, attributes)
+  const onSubmit = ({ name, tags, additionalFields }) => {
+    createItem(name, tags, additionalFields)
   }
-
-  useEffect(() => {
-    const getTags = async () => {
-      const {payload} = await dispatch(fetchTags())
-      const fetchedTags = payload.map((tag) => tag.name)
-      setTags(fetchedTags)
-    }
-
-    getTags()
-  }, [dispatch])
-
 
   const formik = useFormik({
     initialValues: {
       name: '',
       tags: '',
-      
-      firstLabel: '',
-      secondLabel: '',
-      thirdLabel: '',
-
-      firstValue: '',
-      secondValue: '',
-      thirdValue: '',
+      additionalFields: [],
     },
     validationSchema: ItemSchema,
-    onSubmit
+    onSubmit: onSubmit
   })
 
   const {
@@ -105,9 +58,27 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
     getFieldProps,
     status,
     isSubmitting,
-    setFieldValue
+    setFieldValue,
+    values
   } = formik;
 
+  useEffect(() => {
+    // getting tags
+    const getTags = async () => {
+      const {payload} = await dispatch(fetchTags())
+      const fetchedTags = payload.map((tag) => tag.name)
+      setTags(fetchedTags)
+    } 
+
+    const data = JSON.parse(attributeType)
+    const fields = []
+    for (const [type, amount] of Object.entries(data)) {
+      for(let i = 0; i < amount; i++) fields.push({ type, value: '', label: '' })
+    }
+    setFieldValue('additionalFields', fields)
+
+    getTags()
+  }, [dispatch, attributeType, setFieldValue])
 
   return (
     <FormikProvider value={formik}>
@@ -141,7 +112,7 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
                 errors={errors}
                 touched={touched}
                 setFieldValue={setFieldValue}
-                type={attributeType}
+                fields={values.additionalFields}
                 getFieldProps={getFieldProps}
               />
             } 
