@@ -13,7 +13,6 @@ const attributeComponents = {
 
 
 const UniversalAttribute = ({ type, value, label }) => {
-  console.log(type)
   const Attribute = attributeComponents[type]
   return (
     <Attribute value={value} label={label} />
