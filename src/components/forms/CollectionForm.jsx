@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab'
-import { Alert, Box, Button, Checkbox, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Checkbox, DialogActions, DialogContent, InputLabel, MenuItem, TextField, Typography } from '@mui/material'
 import { Form, FormikProvider, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
@@ -8,14 +8,6 @@ import * as yup from 'yup'
 import { createCollection, profileIdSelector } from '../../app/profile/profileSlice'
 import topics from '../../shared/constants/topics'
 import NumberSelector from '../ui/NumberSelector/NumberSelector'
-
-const additionalFieldTypes = [
-  { id: 'app.profile.collectionForm.additionalFieldType.integer', value: 'integer' },
-  { id: 'app.profile.collectionForm.additionalFieldType.string', value: 'string' },
-  { id: 'app.profile.collectionForm.additionalFieldType.checkbox', value: 'checkbox' },
-  { id: 'app.profile.collectionForm.additionalFieldType.date', value: 'date' },
-  { id: 'app.profile.collectionForm.additionalFieldType.multiLine', value: 'multiLine' },
-]
 
 const additionalFields = [
   ['integer','app.profile.collectionForm.additionalFieldType.integer' ],
@@ -90,7 +82,6 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
     getFieldProps,
     status,
     isSubmitting,
-    values,
     setFieldValue
   } = formik;
 

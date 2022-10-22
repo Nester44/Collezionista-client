@@ -1,7 +1,7 @@
-import { Box, Button, IconButton, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { Box, IconButton, Typography } from '@mui/material';
+import React, { useState } from 'react';
 
 const NumberSelector = ({ changeHandler }) => {
   const [value, setValue] = useState(0)

@@ -2,22 +2,13 @@ import { LoadingButton } from '@mui/lab'
 import { Button, DialogActions, DialogContent, TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import { Form, FormikProvider, useFormik } from 'formik'
-import React, { useState } from 'react'
-import * as yup from 'yup'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch } from 'react-redux'
+import * as yup from 'yup'
 import { fetchTags } from '../../app/collection/collectionSlice'
 import ItemAutoComplete from '../ui/ItemAutoComplete/ItemAutoComplete'
 import AdditionalFields from './AdditionalFields/AdditionalFields'
-
-const validations = {
-  'checkbox': yup.boolean() ,
-  'integer': yup.number(),
-  'string': yup.string(),
-  'date': yup.date(),
-  'multiline': yup.string(),
-}
 
 const ItemForm = ({ onClose, createItem, attributeType }) => {
   const dispatch = useDispatch()
@@ -27,13 +18,6 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
       .required(),
     tags: yup
       .array(),
-
-    // firstValue: validations[attributeType]
-    // .required(),
-    // secondValue: validations[attributeType]
-    // .required(),
-    // thirdValue: validations[attributeType]
-    // .required()
   })
   const [tags, setTags] = useState([])
 
