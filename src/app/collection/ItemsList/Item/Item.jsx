@@ -4,7 +4,7 @@ import React from 'react'
 import AttributesAccordion from './AttributesAccordeon/AttributesAccordeon'
 import Tag from './Tag/Tag'
 
-const Item = ({ name, tags, fields, type, onDelete, canEdit }) => {
+const Item = ({ name, tags, fields, onDelete, canEdit }) => {
   let attributes
   try {
     attributes = JSON.parse(fields)
@@ -32,7 +32,7 @@ const Item = ({ name, tags, fields, type, onDelete, canEdit }) => {
             {
               attributes &&
               <Box>
-                <AttributesAccordion name={name} fields={attributes} type={type} />
+                <AttributesAccordion name={name} fields={attributes} />
               </Box>
             }
 

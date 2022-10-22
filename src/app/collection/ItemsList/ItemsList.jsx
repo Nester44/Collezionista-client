@@ -13,7 +13,7 @@ const ItemsList = ({ items, attributeType, canEdit }) => {
   }
 
   const itemsElements = items?.map(i => 
-    <Item key={'item' + i.id} name={i.name} canEdit={canEdit} tags={i.Tags} fields={i.additional_attributes} type={attributeType} onDelete={() => destroyItem(i.id)} />
+    <Item key={'item' + i.id} name={i.name} canEdit={canEdit} tags={i.Tags} fields={i.additional_attributes} onDelete={() => destroyItem(i.id)} />
   )
 
   return (
