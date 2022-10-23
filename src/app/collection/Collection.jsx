@@ -40,9 +40,9 @@ const Collection = () => {
   useEffect(() => {
     const fetchCollection = async () => {
       const { payload } = await dispatch(getCollection(collectionId))
-      setDescription(payload.description)
-      setName(payload.name)
-      setTopic(payload.topic)
+      setDescription(payload?.description)
+      setName(payload?.name)
+      setTopic(payload?.topic)
     }
 
     fetchCollection()

@@ -3,8 +3,16 @@ import { Box } from '@mui/system'
 import React from 'react'
 import AttributesAccordion from './AttributesAccordeon/AttributesAccordeon'
 import Tag from './Tag/Tag'
+import { useNavigate } from "react-router-dom";
+import routes from '../../../../shared/constants/routes'
 
-const Item = ({ name, tags, fields, onDelete, canEdit }) => {
+
+const Item = ({ name, tags, fields, onDelete, canEdit, id }) => {
+  const navigate = useNavigate()
+  const onRedirect = () => {
+    navigate(routes.ITEM + id)
+  }
+
   let attributes
   try {
     attributes = JSON.parse(fields)
@@ -30,7 +38,7 @@ const Item = ({ name, tags, fields, onDelete, canEdit }) => {
             </Box>
 
             {
-              attributes &&
+              attributes && attributes.length > 0 &&
               <Box>
                 <AttributesAccordion name={name} fields={attributes} />
               </Box>
@@ -40,7 +48,7 @@ const Item = ({ name, tags, fields, onDelete, canEdit }) => {
 
         </CardContent>
         <Box component={CardActions} justifyContent='end' >
-          <Button>More</Button>
+          <Button onClick={onRedirect} >More</Button>
           {canEdit && <Button color='error' onClick={onDelete} >Delete</Button>} 
         </Box>
       </Card>

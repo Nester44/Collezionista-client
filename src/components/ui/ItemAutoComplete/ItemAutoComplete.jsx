@@ -1,7 +1,7 @@
-import { Autocomplete, Chip, TextField } from '@mui/material'
+import { Autocomplete, TextField } from '@mui/material'
 import React from 'react'
 
-const ItemAutoComplete = ({ tags, touched, getFieldProps, status, errors, setFieldValue}) => {
+const ItemAutoComplete = ({ tags, setFieldValue}) => {
 
   const onChange = (e, value) => {
     setFieldValue('tags', value)

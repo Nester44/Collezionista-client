@@ -3,7 +3,8 @@ const routes = {
   LOGIN: '/login',
   REGISTRATION: '/registration',
   USER: '/user/',
-  COLLECTION: '/collection/'
+  COLLECTION: '/collection/',
+  ITEM: '/item/'
 }
 
 export default routes

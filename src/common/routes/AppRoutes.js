@@ -6,6 +6,7 @@ import routes from "../../shared/constants/routes";
 import Registration from "../../app/auth/registration/Registration";
 import Profile from "../../app/profile/Profile";
 import Collection from "../../app/collection/Collection";
+import ItemPage from "../../app/itemPage/ItemPage";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -14,6 +15,7 @@ export default function AppRoutes() {
       <Route path={routes.REGISTRATION} element={<Registration />} />
       <Route path={routes.USER + ':userId'} element={<Profile />} />
       <Route path={routes.COLLECTION + ':collectionId'} element={<Collection />} />
+      <Route path={routes.ITEM + ':itemId'} element={<ItemPage />} />
     </Routes>
   );
 }
