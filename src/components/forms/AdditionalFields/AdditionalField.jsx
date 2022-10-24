@@ -3,7 +3,7 @@ import { Box } from '@mui/system'
 import React from 'react'
 import UniversalField from './UniversalField'
 
-const AdditionalField = ({ id, getFieldProps, setFieldValue, touched, errors, type }) => {
+const AdditionalField = ({ id, getFieldProps, setFieldValue, touched, errors, type, fullWidth }) => {
   const labelName = `additionalFields[${id}].label`
   const valueName = `additionalFields[${id}].value`
   return (
@@ -21,7 +21,7 @@ const AdditionalField = ({ id, getFieldProps, setFieldValue, touched, errors, ty
       />
       :
 
-      <Box component={UniversalField} valueName={valueName} type={type} errors={errors} touched={touched} setFieldValue={setFieldValue} getFieldProps={getFieldProps} /> 
+      <Box component={UniversalField} fullWidth={fullWidth} valueName={valueName} type={type} errors={errors} touched={touched} setFieldValue={setFieldValue} getFieldProps={getFieldProps} /> 
 </Box>
   )
 }

@@ -1,14 +1,11 @@
-import { Box, Button, CircularProgress, Paper, Typography } from '@mui/material'
+import { Box, CircularProgress, Divider, Paper, Typography } from '@mui/material'
 import { Container } from '@mui/system'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchTags } from '../collection/collectionSlice'
-import Tag from '../collection/ItemsList/Item/Tag/Tag'
-import AdditionalAttributes from './AdditionalAttributes/AdditionalAttributes'
-import ItemName from './ItemName/ItemName'
+import Comments from './Comments/Comments'
+import ItemInfo from './ItemInfo/ItemInfo'
 import { getItem, itemPendingSelector, itemSelector } from './itemSlice'
-import TagList from './TagList/TagList'
 
 const ItemPage = () => {
   const dispatch = useDispatch()
@@ -17,32 +14,15 @@ const ItemPage = () => {
   const item = useSelector(itemSelector)
   const isFetching = useSelector(itemPendingSelector)
 
-  const [isEdit, setIsEdit] = useState(false)
 
-  const [name, setName] = useState()
-  const [currentTags, setCurrentTags] = useState([])
-  const [tagsOptions, setTagsOptions] = useState([])
 
-  const saveEdit = () => {
-    setIsEdit(false)
-  }
 
   useEffect(() => {
-    // getting tags
-    const getTags = async () => {
-      const { payload } = await dispatch(fetchTags())
-      const fetchedTags = payload.map((tag) => tag.name)
-      setTagsOptions(fetchedTags)
-    } 
-
     const fetchItem = async() => {
-      const { payload } = await dispatch(getItem(itemId))
-      setCurrentTags(payload.Tags)
-      setName(payload.name)
+      await dispatch(getItem(itemId))
     }
 
     fetchItem()
-    getTags()
   }, [itemId, dispatch])
 
   if(isFetching) return <CircularProgress />
@@ -52,32 +32,22 @@ const ItemPage = () => {
   const attributes = JSON.parse(item.additional_attributes)
 
   return (
-    <Container>
-      <Box my={2} p={2} component={Paper}>
-        <ItemName isEdit={isEdit} name={name} setName={setName} />
 
-        <TagList setCurrentTags={setCurrentTags} currentTags={currentTags} isEdit={isEdit} tagsOptions={tagsOptions} />
+      <Container>
 
-        <Box mb={2}>
-          <Typography variant='subtitle1'>
-            Additional attributes
-          </Typography>
-        </Box>
+        <Box my={2} p={2} component={Paper}>
 
-        <AdditionalAttributes isEdit={isEdit} additionalAttributes={attributes} />
+        <ItemInfo itemId={itemId} attributes={attributes} itemName={item.name} itemTags={item.Tags} />
 
-        <Box>
-          {
-            isEdit ?
-            <Button onClick={saveEdit} >Save</Button>
-            :
-            <Button onClick={() => setIsEdit(true)} >Edit</Button>
-          }
+        <Divider />
+
+        <Comments />
 
         </Box>
 
-      </Box>
-    </Container>
+      </Container>
+
+
   )
 }
 

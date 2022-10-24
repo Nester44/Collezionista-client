@@ -20,6 +20,11 @@ class ItemAPI {
     const response = await API.get(`/items/${id}`)
     return response
   }
+
+  async update(id, name, tags, attributes) {
+    const response = await API.put('/items/update', { id, name, tags, attributes })
+    return response
+  }
 }
 
 export default new ItemAPI()

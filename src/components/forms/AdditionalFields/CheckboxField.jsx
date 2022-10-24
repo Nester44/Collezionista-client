@@ -9,8 +9,6 @@ const CheckboxField = ({ valueName, getFieldProps, setFieldValue, touched, error
   
   return (
     <Checkbox
-      error={Boolean(touched[valueName] && errors[valueName])}
-      helperText={touched[valueName] && errors[valueName]}
       {...getFieldProps(valueName)}
       name={valueName}
       id={valueName}

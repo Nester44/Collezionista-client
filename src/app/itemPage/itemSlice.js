@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import itemAPI from "../../shared/api/itemAPI"
+import ItemAPI from "../../shared/api/itemAPI"
 import createAsyncThunkWithId from "../../shared/factory/createAsyncThunkId"
 
 const initialState = {
@@ -13,7 +13,19 @@ export const getItem = createAsyncThunk(
   'item/getItem',
   async (id, { rejectWithValue }) => {
     try {
-      const response = await itemAPI.get(id)
+      const response = await ItemAPI.get(id)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const updateItem = createAsyncThunk(
+  'item/updateItem',
+  async ({ id, name, tags, additionalFields }, { rejectWithValue }) => {
+    try {
+      const response = await ItemAPI.update(id, name, tags, additionalFields)
       return response.data
     } catch (error) {
       return rejectWithValue(error)
@@ -35,6 +47,10 @@ const itemSlice = createSlice({
     builder.addCase(getItem.fulfilled, (state, action) => {
       state.item = action.payload
       state.isFetching = false
+    })
+
+    builder.addCase(updateItem.fulfilled, (state, action) => {
+      state.item = action.payload
     })
   }
 })

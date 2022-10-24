@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material'
 import React from 'react'
 
-const TagInput = ({ tagsOptions, setCurrentTags, currentTags }) => {
+const  TagInput = ({ tagsOptions, setCurrentTags, currentTags }) => {
   const onChange = (e, value) => {
     const formattedTags = value.map(t => ({ name: t }))
     setCurrentTags(formattedTags)

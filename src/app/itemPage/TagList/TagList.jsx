@@ -4,16 +4,20 @@ import Tag from '../../collection/ItemsList/Item/Tag/Tag'
 import ItemAutoComplete from '../../../components/ui/ItemAutoComplete/ItemAutoComplete'
 import TagInput from './TagInput/TagInput'
 
-const TagList = ({ setCurrentTags, currentTags, isEdit, tagsOptions }) => {
+const TagList = ({ currentTags, isEdit, tagsOptions, setFieldValue, autocompleteTags }) => {
 
-  const tagElements = currentTags.map((t, i) => <Tag key={t.name} name={t.name} color={t.color} />)
+  const tagElements = currentTags.map((t) => <Tag key={t.name} name={t.name} color={t.color} />)
 
   return (
-    <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center', gap: 1 }}>
+    <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center', gap: 1, flexWrap: 'wrap' }}>
       {
         isEdit ?
         
-        <TagInput tagsOptions={tagsOptions} setCurrentTags={setCurrentTags} currentTags={currentTags} />
+        <ItemAutoComplete
+          setFieldValue={setFieldValue}
+          tags={tagsOptions}
+          autocompleteTags={autocompleteTags}
+        />
         :
         tagElements
       }
