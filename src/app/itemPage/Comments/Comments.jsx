@@ -7,7 +7,9 @@ import io from 'socket.io-client'
 import * as yup from 'yup'
 import { userIdSelector } from '../../auth/auth-slice'
 
-const socket = io('http://localhost:1337')
+const AZURE_BASE_URL = 'https://collection-sys.azurewebsites.net/'
+const LOCALHOST_BASE_URL = 'http://localhost:1337'
+const socket = io(AZURE_BASE_URL)
 
 const Comment = ({ name, body }) => {
   return (
