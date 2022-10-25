@@ -1,10 +1,13 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { Stack } from '@mui/system'
 import { Form, FormikProvider, useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import io from 'socket.io-client'
 import * as yup from 'yup'
+import { userIdSelector } from '../../auth/auth-slice'
 
-
+const socket = io('http://localhost:1337')
 
 const Comment = ({ name, body }) => {
   return (
@@ -19,16 +22,19 @@ const Comment = ({ name, body }) => {
   )
 }
 
-const CommentForm = ({ sendMessage }) => {
-
+const CommentForm = ({ room, item_id }) => {
+  const author_id = useSelector(userIdSelector)
   const CommentSchema = yup.object().shape({
     body: yup
       .string()
       .required()
   })
 
-  const onSubmit = ({ body }, {resetForm}) => {
-    sendMessage({ name: 'nikitos', body})
+  const onSubmit = ({ body }, { resetForm }) => {
+    if(!author_id) return console.error('User isn\'t authenticated')
+
+    const message = { author_id, body, item_id}
+    socket.emit('post-comment', message, room)
     resetForm()
   }
 
@@ -69,12 +75,32 @@ const CommentForm = ({ sendMessage }) => {
   )
 }
 
-const Comments = () => {
-  const [comments, setComments] = useState([
-    { name: 'Nesterov Nikita', body: 'Nice item, I really like it'},
-    { name: 'Oleg Matsd', body: 'Not so bad'},
-    { name: 'Bad boy', body: 'It is shit'},
-  ])
+const Comments = ({ itemId, itemComments }) => {
+  const [comments, setComments] = useState(itemComments)
+  const room = `item${itemId}`
+
+
+  useEffect(() => {
+  const currentRoom = `item${itemId}`
+  socket.emit('join-room', currentRoom)
+    socket.on('connect', () => {
+    }) 
+
+  socket.off('receive-comment').on('receive-comment', (message) => {
+    setComments((prevMessages) => {
+      const newMessages = [ ...prevMessages, message]
+      return newMessages
+    })
+  })
+
+  socket.on('sender-feedback', (comment) => {
+    setComments((prev) => [...prev, comment])
+  })
+
+  return () => {
+    socket.emit('unsubscribe', currentRoom)
+  }
+  }, [itemId])
 
   return (
     <Box>
@@ -89,12 +115,12 @@ const Comments = () => {
       >
         
         {
-          comments.map((c, i) => <Comment key={c.name + i} name={c.name} body={c.body} />)
+          comments.map((c, i) => <Comment key={c.User.name + i} name={c.User.name} body={c.body} />)
         }
 
       </Stack>
 
-      <CommentForm sendMessage={(message) => setComments([ ...comments, message])} />
+      <CommentForm room={room} item_id={itemId} />
     </Box>
   )
 }

@@ -41,7 +41,7 @@ const ItemPage = () => {
 
         <Divider />
 
-        <Comments />
+        <Comments itemId={itemId} itemComments={item.Comments} />
 
         </Box>
 
