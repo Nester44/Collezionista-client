@@ -9,7 +9,7 @@ import { userIdSelector } from '../../auth/auth-slice'
 
 const AZURE_BASE_URL = 'https://collection-sys.azurewebsites.net/'
 const LOCALHOST_BASE_URL = 'http://localhost:1337'
-const socket = io(AZURE_BASE_URL)
+const socket = io(LOCALHOST_BASE_URL)
 
 const Comment = ({ name, body }) => {
   return (
@@ -95,7 +95,7 @@ const Comments = ({ itemId, itemComments }) => {
     })
   })
 
-  socket.on('sender-feedback', (comment) => {
+  socket.off('sender-feedback').on('sender-feedback', (comment) => {
     setComments((prev) => [...prev, comment])
   })
 
