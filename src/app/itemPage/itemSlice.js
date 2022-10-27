@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import ItemAPI from "../../shared/api/itemAPI"
-import createAsyncThunkWithId from "../../shared/factory/createAsyncThunkId"
+import createAsyncThunkWithId from "../../util/createAsyncThunkId"
 
 const initialState = {
   item: null,

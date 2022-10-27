@@ -9,7 +9,7 @@ const TagList = ({ currentTags, isEdit, tagsOptions, setFieldValue, autocomplete
   const tagElements = currentTags.map((t) => <Tag key={t.name} name={t.name} color={t.color} />)
 
   return (
-    <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center', gap: 1, flexWrap: 'wrap' }}>
+    <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center', gap: 1, flexWrap: 'wrap' }}>
       {
         isEdit ?
         

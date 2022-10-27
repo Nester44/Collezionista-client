@@ -31,8 +31,8 @@ const Profile = () => {
   const handleClickOpenModal = () => setModalOpen(true)
   const handleCloseModal = () => setModalOpen(false)
 
-  const currentUser = useSelector(currentUserSelector)
   const isFetching = useSelector(isFetchingSelector)
+  const currentUser = useSelector(currentUserSelector)
   const userProfile = useSelector(profileSelector)
 
   const destroyCollection = async (collection_id) => {

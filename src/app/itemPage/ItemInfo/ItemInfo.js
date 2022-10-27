@@ -8,9 +8,9 @@ import ItemName from '../ItemName/ItemName'
 import TagList from '../TagList/TagList'
 import * as yup from 'yup'
 import { updateItem } from '../itemSlice'
+import ItemToolbar from './ItemToolbar/ItemToolbar'
 
-
-const ItemInfo = ({ attributes, itemName, itemTags, itemId }) => {
+const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit }) => {
   const dispatch = useDispatch()
   const ItemSchema = yup.object().shape({
     name: yup
@@ -20,11 +20,7 @@ const ItemInfo = ({ attributes, itemName, itemTags, itemId }) => {
       .array(),
   })
 
-
-
   const [isEdit, setIsEdit] = useState(false)
-
-  const [currentTags, setCurrentTags] = useState(itemTags)
   const [tagsOptions, setTagsOptions] = useState([])
 
 
@@ -84,7 +80,6 @@ const ItemInfo = ({ attributes, itemName, itemTags, itemId }) => {
           />
 
           <TagList
-            setCurrentTags={setCurrentTags}
             currentTags={itemTags}
             autocompleteTags={values.tags}
             isEdit={isEdit}
@@ -105,19 +100,12 @@ const ItemInfo = ({ attributes, itemName, itemTags, itemId }) => {
             setFieldValue={setFieldValue}
           />
 
-          <Box>
-            {
-              isEdit &&
-              <Button type='submit' >Save</Button>
-            }
-            {
-              isEdit ||
-              <Button onClick={() => setIsEdit(true)} >Edit</Button>
-            }
 
+          {
+            canEdit &&
+            <ItemToolbar isEdit={isEdit} setIsEdit={setIsEdit} />
+          }
 
-
-          </Box>
         </Box>
       </Form>
     </FormikProvider>

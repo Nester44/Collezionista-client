@@ -6,26 +6,14 @@ import { useSelector } from 'react-redux'
 import io from 'socket.io-client'
 import * as yup from 'yup'
 import { userIdSelector } from '../../auth/auth-slice'
+import Comment from './Comment/Comment'
 
 const AZURE_BASE_URL = 'https://collection-sys.azurewebsites.net/'
 const LOCALHOST_BASE_URL = 'http://localhost:1337'
 const socket = io(LOCALHOST_BASE_URL)
 
-const Comment = ({ name, body }) => {
-  return (
-    <Box
-      component={Paper}
-      elevation={5}
-      p={2}
-    >
-      <Typography variant='h5'>{ name }</Typography>
-      <Typography variant='body1'>{ body }</Typography>
-    </Box>
-  )
-}
 
-const CommentForm = ({ room, item_id }) => {
-  const author_id = useSelector(userIdSelector)
+const CommentForm = ({ room, item_id, author_id }) => {
   const CommentSchema = yup.object().shape({
     body: yup
       .string()
@@ -81,6 +69,7 @@ const Comments = ({ itemId, itemComments }) => {
   const [comments, setComments] = useState(itemComments)
   const room = `item${itemId}`
 
+  const currentUser = useSelector(userIdSelector)
 
   useEffect(() => {
   const currentRoom = `item${itemId}`
@@ -106,23 +95,23 @@ const Comments = ({ itemId, itemComments }) => {
 
   return (
     <Box>
-        <Typography variant="h4">Comments</Typography>
+        <Typography my={2} variant="h4">Comments</Typography>
       <Stack
         mb={2}
         spacing={2}
-        sx={{
-          overflowY: 'auto',
-          maxHeight: '30vh'
-        }}
       >
         
         {
-          comments.map((c, i) => <Comment key={c.User.name + i} name={c.User.name} body={c.body} />)
+          comments?.map((c, i) => <Comment key={c.User.name + i} name={c.User.name} body={c.body} id={c.User.id} />)
         }
 
       </Stack>
 
-      <CommentForm room={room} item_id={itemId} />
+       {
+        currentUser &&
+        <CommentForm room={room} item_id={itemId} author_id={currentUser} />
+
+       } 
     </Box>
   )
 }

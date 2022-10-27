@@ -4,7 +4,7 @@ import React from 'react'
 
 const ItemName = ({ isEdit, getFieldProps, name, errors, touched }) => {
   return (
-    <Box mb={4}>
+    <Box mb={2}>
       
       {
         isEdit ?

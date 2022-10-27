@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import CollectionAPI from "../../shared/api/collectionAPI"
 import userAPI from "../../shared/api/userAPI"
-import createAsyncThunkWithId from "../../shared/factory/createAsyncThunkId"
+import createAsyncThunkWithId from "../../util/createAsyncThunkId"
 
 
 const initialState = {
