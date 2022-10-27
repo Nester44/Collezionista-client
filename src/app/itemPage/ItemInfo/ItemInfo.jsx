@@ -10,7 +10,7 @@ import * as yup from 'yup'
 import { updateItem } from '../itemSlice'
 import ItemToolbar from './ItemToolbar/ItemToolbar'
 
-const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit }) => {
+const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit, currentUser, likeHandler, liked, dislikeHandler, likesCount }) => {
   const dispatch = useDispatch()
   const ItemSchema = yup.object().shape({
     name: yup
@@ -100,10 +100,18 @@ const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit }) => {
             setFieldValue={setFieldValue}
           />
 
+          <Typography>Likes: {likesCount}</Typography>
 
           {
-            canEdit &&
-            <ItemToolbar isEdit={isEdit} setIsEdit={setIsEdit} />
+            currentUser &&
+            <ItemToolbar
+              canEdit={canEdit}
+              isEdit={isEdit}
+              setIsEdit={setIsEdit}
+              likeHandler={likeHandler}
+              dislikeHandler={dislikeHandler}
+              liked={liked}
+            />
           }
 
         </Box>

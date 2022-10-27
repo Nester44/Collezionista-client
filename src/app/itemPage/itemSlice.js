@@ -11,9 +11,9 @@ const initialState = {
 
 export const getItem = createAsyncThunk(
   'item/getItem',
-  async (id, { rejectWithValue }) => {
+  async ({ itemId, userId }, { rejectWithValue }) => {
     try {
-      const response = await ItemAPI.get(id)
+      const response = await ItemAPI.get(itemId, userId)
       return response.data
     } catch (error) {
       return rejectWithValue(error)
@@ -33,6 +33,30 @@ export const updateItem = createAsyncThunk(
   }
 )
 
+// export const likeItem = createAsyncThunkWithId('item/likeItem', ItemAPI.like)
+export const likeItem = createAsyncThunk(
+  'item/likeItem',
+  async ({ itemId, userId }, { rejectWithValue }) => {
+    try {
+      const response = await ItemAPI.like(itemId, userId)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const dislikeItem = createAsyncThunk(
+  'item/dislikeItem',
+  async ({ itemId, userId }, { rejectWithValue }) => {
+    try {
+      const response = await ItemAPI.dislike(itemId, userId)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
 
 const itemSlice = createSlice({
   name: 'item',
@@ -44,14 +68,23 @@ const itemSlice = createSlice({
     builder.addCase(getItem.pending, (state, action) => {
       state.isFetching = true
     })
-    builder.addCase(getItem.fulfilled, (state, action) => {
-      state.item = action.payload
-      state.isFetching = false
-    })
+      .addCase(getItem.fulfilled, (state, action) => {
+        state.item = action.payload
+        state.isFetching = false
+      })
 
-    builder.addCase(updateItem.fulfilled, (state, action) => {
-      state.item = action.payload
-    })
+      .addCase(updateItem.fulfilled, (state, action) => {
+        state.item = action.payload
+      })
+
+      .addCase(dislikeItem.fulfilled, (state, action) => {
+        state.item = action.payload
+      })
+      .addCase(likeItem.fulfilled, (state, action) => {
+        state.item = action.payload
+      })
+
+
   }
 })
 

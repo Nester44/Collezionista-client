@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { currentUserSelector } from '../auth/auth-slice'
 import Comments from './Comments/Comments'
 import ItemInfo from './ItemInfo/ItemInfo'
-import { getItem, itemPendingSelector, itemSelector } from './itemSlice'
+import { dislikeItem, getItem, itemPendingSelector, itemSelector, likeItem } from './itemSlice'
 
 const ItemPage = () => {
   const dispatch = useDispatch()
@@ -16,16 +16,21 @@ const ItemPage = () => {
   const item = useSelector(itemSelector)
   const isFetching = useSelector(itemPendingSelector)
 
+  const likeHandler = () => {
+    dispatch(likeItem({ itemId, userId: currentUser?.id }))
+  }
 
-
+  const dislikeHandler = () => {
+    dispatch(dislikeItem({ itemId, userId: currentUser?.id }))
+  }
 
   useEffect(() => {
     const fetchItem = async() => {
-      await dispatch(getItem(itemId))
+      await dispatch(getItem({ itemId, userId: currentUser?.id }))
     }
 
     fetchItem()
-  }, [itemId, dispatch])
+  }, [itemId, dispatch, currentUser])
 
   if(isFetching) return <CircularProgress />
 
@@ -41,7 +46,18 @@ const ItemPage = () => {
 
         <Box my={2} p={2} component={Paper}>
 
-        <ItemInfo canEdit={canEdit} itemId={itemId} attributes={attributes} itemName={item.name} itemTags={item.Tags} />
+        <ItemInfo
+          likeHandler={likeHandler}
+          dislikeHandler={dislikeHandler}
+          canEdit={canEdit}
+          itemId={itemId}
+          attributes={attributes}
+          itemName={item.name}
+          itemTags={item.Tags}
+          currentUser={currentUser}
+          liked={item.liked}
+          likesCount={item.Users.length}
+        />
 
         <Divider />
 

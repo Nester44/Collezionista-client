@@ -16,8 +16,8 @@ class ItemAPI {
     return response
   }
 
-  async get(id) {
-    const response = await API.get(`/items/${id}`)
+  async get(item_id, user_id) {
+    const response = await API.get(`/items/get/${item_id}/${user_id}`)
     return response
   }
 
@@ -25,6 +25,17 @@ class ItemAPI {
     const response = await API.put('/items/update', { id, name, tags, attributes })
     return response
   }
+
+  async like(item_id, user_id) {
+    const response = await API.post('/items/like', { item_id, user_id })
+    return response
+  }
+
+  async dislike(item_id, user_id) {
+    const response = await API.post('/items/dislike', { item_id, user_id })
+    return response
+  }
+
 }
 
 export default new ItemAPI()
