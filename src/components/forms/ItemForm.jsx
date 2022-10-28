@@ -56,10 +56,13 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
 
     const data = JSON.parse(attributeType)
     const fields = []
-    for (const [type, amount] of Object.entries(data)) {
-      for(let i = 0; i < amount; i++) fields.push({ type, value: '', label: '' })
+
+    if(data) {
+      for (const [type, amount] of Object.entries(data)) {
+        for(let i = 0; i < amount; i++) fields.push({ type, value: '', label: '' })
+      }
+      setFieldValue('additionalFields', fields)
     }
-    setFieldValue('additionalFields', fields)
 
     getTags()
   }, [dispatch, attributeType, setFieldValue])
