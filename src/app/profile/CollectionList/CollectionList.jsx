@@ -2,7 +2,7 @@ import { Grid, Paper, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 
-const CollectionList = ({collectionsElements}) => {
+const CollectionList = ({ collectionsElements }) => {
   return (
     <Box mb={1}>
     <Paper elevation={3} sx={{

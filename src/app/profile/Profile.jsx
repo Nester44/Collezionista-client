@@ -68,12 +68,15 @@ const Profile = () => {
       canManage={canManage}
       image={collection.image}
       onDelete={() => destroyCollection(collection.id)}
+      xs={12}
+      sm={6}
+      md={4}
     />)
 
 
 
   return (
-    <Container >
+    <Container maxWidth='xl' >
       <Typography variant="h2">
         {userProfile?.name}
       </Typography>

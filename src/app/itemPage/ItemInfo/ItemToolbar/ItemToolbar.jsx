@@ -1,6 +1,7 @@
-import { Button, Typography } from '@mui/material'
+import { Button } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useState } from 'react'
+import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import EditButton from './EditButton/EditButton'
 import LikeButton from './LikeButton/LikeButton'
 
@@ -16,7 +17,7 @@ const ItemToolbar = ({ isEdit, setIsEdit, canEdit, likeHandler, dislikeHandler, 
           <Button
             color='error'
           >
-            Delete
+            <FormattedMessage id='app.profile.collection.delete' />
           </Button>
         </>
       }

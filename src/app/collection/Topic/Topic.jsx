@@ -1,8 +1,9 @@
-import { MenuItem, TextField, Typography } from '@mui/material'
+import { MenuItem, Stack, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import AdaptiveStack from '../../../components/ui/AdaptiveStack/AdaptiveStack'
 import topics from '../../../shared/constants/topics'
 
 const Topic = ({ topic, isEditing, setTopic, userFeatures }) => {
@@ -31,9 +32,15 @@ const Topic = ({ topic, isEditing, setTopic, userFeatures }) => {
 
 
   return (
-    <Typography color='text.secondary' my={4} {...userFeatures} variant='subtitle1'>
-      <FormattedMessage id={topic || 'app.profile.collectionForm.topic.books'} />
-    </Typography>
+    <AdaptiveStack>
+      <Typography sx={{ userSelect: 'none' }} component='span' color='text.secondary' variant="body1" >
+        <FormattedMessage id='app.collection.topic' />
+      </Typography>
+
+      <Typography component='span'  {...userFeatures} variant='h5'>
+        <FormattedMessage id={topic || 'app.profile.collectionForm.topic.books'} />
+      </Typography>
+    </AdaptiveStack>
   )
 }
 

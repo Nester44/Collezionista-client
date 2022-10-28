@@ -5,9 +5,10 @@ import AttributesAccordion from './AttributesAccordeon/AttributesAccordeon'
 import Tag from './Tag/Tag'
 import { useNavigate } from "react-router-dom";
 import routes from '../../../../shared/constants/routes'
+import { FormattedMessage } from 'react-intl'
 
 
-const Item = ({ name, tags, fields, onDelete, canEdit, id }) => {
+const Item = ({ name, tags, fields, onDelete, canEdit, id, xs, sm, md }) => {
   const navigate = useNavigate()
   const onRedirect = () => {
     navigate(routes.ITEM + id)
@@ -25,7 +26,7 @@ const Item = ({ name, tags, fields, onDelete, canEdit, id }) => {
   )
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item xs={xs} sm={sm} md={md}>
       <Card variant="outlined">
         <CardContent >
           <Typography mb={2} variant="h4">{name}</Typography>
@@ -48,8 +49,14 @@ const Item = ({ name, tags, fields, onDelete, canEdit, id }) => {
 
         </CardContent>
         <Box component={CardActions} justifyContent='end' >
-          <Button onClick={onRedirect} >More</Button>
-          {canEdit && <Button color='error' onClick={onDelete} >Delete</Button>} 
+          <Button onClick={onRedirect} >
+          <FormattedMessage id='app.item.more' /> 
+          </Button>
+          {canEdit &&
+          <Button color='error' onClick={onDelete} >
+            <FormattedMessage id='app.profile.collection.delete' />
+          </Button>
+          } 
         </Box>
       </Card>
     </Grid>

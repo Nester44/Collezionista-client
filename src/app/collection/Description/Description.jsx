@@ -1,7 +1,8 @@
-import { Button, useTheme } from '@mui/material';
+import { Button, useTheme, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import MDEditor from "@uiw/react-md-editor";
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styles from './Description.module.css';
 
 const Description = ({ isEditing, description, changeDescription, userFeatures, onChange, turnEditing, canEdit }) => {
@@ -10,22 +11,29 @@ const Description = ({ isEditing, description, changeDescription, userFeatures, 
   
   return (
     <Box data-color-mode={mode} >
+     
       {
-          isEditing ?
-          <MDEditor
-            height={400}
-            className={styles.editor}
-            label='Description'
-            margin='normal'
-            value={description}
-            onChange={onChange}
-          />
+          isEditing ?            
+            <MDEditor
+              style={{ color:'inherit' }}
+              height={400}
+              className={styles.editor}
+              label='Description'
+              margin='normal'
+              value={description}
+              onChange={onChange}
+            />
           :
+          <>
+            <Typography sx={{ userSelect: 'none' }} component={Box} mb={2} variant="body1" color='text.secondary'>
+              <FormattedMessage id='app.collection.description' /> 
+            </Typography>
             <MDEditor.Markdown
-            style={{ backgroundColor: 'inherit' }}
-            source={description}
-            linkTarget="_blank"
-          />
+              style={{ backgroundColor: 'inherit', color:'inherit' }}
+              source={description}
+              linkTarget="_blank"
+            />
+          </>
       }
       {
         canEdit &&
@@ -40,11 +48,11 @@ const Description = ({ isEditing, description, changeDescription, userFeatures, 
             isEditing ?
 
               <Button onClick={changeDescription}>
-                Save
+                <FormattedMessage id='app.save' /> 
               </Button>
               :
               <Button onClick={turnEditing}>
-                Edit
+                <FormattedMessage id='app.edit' /> 
               </Button>
           }
         </Box>

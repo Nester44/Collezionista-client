@@ -8,9 +8,9 @@ import styles from './CollectionItem.module.css'
 
 const img = 'https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2luZXN8ZW58MHx8MHx8&w=1000&q=80'
 
-const CollectionItem = ({ name, description, topic, canManage, onDelete, image, id }) => {
+const CollectionItem = ({ name, description, topic, canManage, onDelete, image, id, xs, sm, md }) => {
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item xs={xs} sm={sm} md={md}>
       <Card raised >
         <CardActionArea
           component={Link}
@@ -19,7 +19,7 @@ const CollectionItem = ({ name, description, topic, canManage, onDelete, image, 
           <CardMedia
             height={500}
             title=""
-            image={image ||img}
+            image={image || img}
             component="img"
             alt=''
           />

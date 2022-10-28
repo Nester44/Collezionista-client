@@ -73,7 +73,7 @@ const Collection = () => {
 
   if (!collection) return <Typography>Collection doesn't exist</Typography>
   return (
-    <Container>
+    <Container maxWidth='xl' >
       <Box my={2} >
         <Box component={Paper} elevation={2} p={{ xs: 2, md: 4}} >
           <Grid container spacing={4}>

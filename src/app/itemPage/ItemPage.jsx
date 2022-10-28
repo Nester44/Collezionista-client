@@ -1,6 +1,7 @@
 import { Box, CircularProgress, Divider, Paper, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import React, { useEffect } from 'react'
+import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { currentUserSelector } from '../auth/auth-slice'
@@ -34,7 +35,10 @@ const ItemPage = () => {
 
   if(isFetching) return <CircularProgress />
 
-  if(!item) return <Typography>Item doesn't exist</Typography>
+  if(!item) return (
+    <Typography>
+    <FormattedMessage id='app.item.notExist' />
+    </Typography>)
 
   const attributes = JSON.parse(item.additional_attributes)
 

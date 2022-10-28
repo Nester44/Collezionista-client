@@ -41,6 +41,11 @@ class CollectionAPI {
     const response = await API.put('/collections/edit/', { collection })
     return response;
   }
+
+  async getLargestCollections() {
+    const response = await API.get('/collections/get/largest')
+    return response
+  }
 }
 
 export default new CollectionAPI()

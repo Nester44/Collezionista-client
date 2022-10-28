@@ -13,6 +13,7 @@ class ItemAPI {
 
   async getTags() {
     const response = await API.get('/items/tags/all')
+
     return response
   }
 
@@ -33,6 +34,11 @@ class ItemAPI {
 
   async dislike(item_id, user_id) {
     const response = await API.post('/items/dislike', { item_id, user_id })
+    return response
+  }
+
+  async getRecentItems() {
+    const response = await API.get('/items/latest')
     return response
   }
 

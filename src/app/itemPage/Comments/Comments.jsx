@@ -2,6 +2,7 @@ import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { Stack } from '@mui/system'
 import { Form, FormikProvider, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import io from 'socket.io-client'
 import * as yup from 'yup'
@@ -58,7 +59,9 @@ const CommentForm = ({ room, item_id, author_id }) => {
           label='Leave a comment'
           variant='filled'
         />
-        <Button sx={{ marginTop: 2 }} type='submit' variant='contained' size='large'>Comment</Button>
+        <Button sx={{ marginTop: 2 }} type='submit' variant='contained' size='large'>
+          <FormattedMessage id='app.item.leaveComment' /> 
+        </Button>
       </Box>
       </Form>
     </FormikProvider>
@@ -95,7 +98,9 @@ const Comments = ({ itemId, itemComments }) => {
 
   return (
     <Box>
-        <Typography my={2} variant="h4">Comments</Typography>
+        <Typography my={2} variant="h4">
+          <FormattedMessage id='app.item.comments' />
+        </Typography>
       <Stack
         mb={2}
         spacing={2}

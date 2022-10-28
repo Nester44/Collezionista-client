@@ -9,6 +9,7 @@ import TagList from '../TagList/TagList'
 import * as yup from 'yup'
 import { updateItem } from '../itemSlice'
 import ItemToolbar from './ItemToolbar/ItemToolbar'
+import { FormattedMessage } from 'react-intl'
 
 const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit, currentUser, likeHandler, liked, dislikeHandler, likesCount }) => {
   const dispatch = useDispatch()
@@ -88,7 +89,7 @@ const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit, currentUser
           />
 
           <Typography component={Box} mb={2} variant='subtitle1'>
-            Additional attributes
+            <FormattedMessage id='app.item.additionalAttributes' />
           </Typography>
 
           <AdditionalAttributes
@@ -100,7 +101,9 @@ const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit, currentUser
             setFieldValue={setFieldValue}
           />
 
-          <Typography>Likes: {likesCount}</Typography>
+          <Typography>
+            <FormattedMessage id='app.item.likeAmount' />
+            : {likesCount}</Typography>
 
           {
             currentUser &&

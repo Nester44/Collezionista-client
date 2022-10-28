@@ -74,43 +74,25 @@ const profileSlice = createSlice({
       .addCase(deleteCollection.fulfilled, (state, action) => {
         state.user.collections = state.user.collections.filter(c => c.id !== action.payload.deletedId)
       })
-      .addCase(deleteCollection.rejected, (state, action) => {
-        debugger
-      })
 
       .addCase(makeAdmin.fulfilled, (state, action) => {
         state.user.admin = true
-      })
-      .addCase(makeAdmin.rejected, (state, action) => {
-        debugger
       })
 
       .addCase(removeAdmin.fulfilled, (state, action) => {
         state.user.admin = false
       })
-      .addCase(removeAdmin.rejected, (state, action) => {
-        debugger
-      })
 
       .addCase(blockUser.fulfilled, (state, action) => {
         state.user.blocked = true
-      })
-      .addCase(blockUser.rejected, (state, action) => {
-        debugger
       })
 
       .addCase(unblockUser.fulfilled, (state, action) => {
         state.user.blocked = false
       })
-      .addCase(unblockUser.rejected, (state, action) => {
-        debugger
-      })
 
       .addCase(deleteUserById.fulfilled, (state, action) => {
         state.user = null
-      })
-      .addCase(deleteUserById.rejected, (state, action) => {
-        debugger
       })
   }
 })
