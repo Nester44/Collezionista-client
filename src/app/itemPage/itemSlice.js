@@ -58,6 +58,11 @@ export const dislikeItem = createAsyncThunk(
   }
 )
 
+export const destroyItem = createAsyncThunkWithId(
+  'item/destroyItem',
+  ItemAPI.delete
+)
+
 const itemSlice = createSlice({
   name: 'item',
   initialState,
@@ -82,6 +87,10 @@ const itemSlice = createSlice({
       })
       .addCase(likeItem.fulfilled, (state, action) => {
         state.item = action.payload
+      })
+
+      .addCase(destroyItem.fulfilled, (state, action) => {
+        state.item = null
       })
 
 

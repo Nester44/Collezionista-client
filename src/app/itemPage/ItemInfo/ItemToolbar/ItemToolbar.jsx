@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import EditButton from './EditButton/EditButton'
 import LikeButton from './LikeButton/LikeButton'
 
-const ItemToolbar = ({ isEdit, setIsEdit, canEdit, likeHandler, dislikeHandler, liked }) => {
+const ItemToolbar = ({ isEdit, setIsEdit, canEdit, likeHandler, dislikeHandler, liked, onDelete }) => {
 
   return (
     <Box>
@@ -16,6 +16,7 @@ const ItemToolbar = ({ isEdit, setIsEdit, canEdit, likeHandler, dislikeHandler, 
           <EditButton isEdit={isEdit} setIsEdit={setIsEdit} />
           <Button
             color='error'
+            onClick={onDelete}
           >
             <FormattedMessage id='app.profile.collection.delete' />
           </Button>

@@ -3,15 +3,17 @@ import { Container } from '@mui/system'
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import routes from '../../shared/constants/routes'
 import { currentUserSelector } from '../auth/auth-slice'
 import Comments from './Comments/Comments'
 import ItemInfo from './ItemInfo/ItemInfo'
-import { dislikeItem, getItem, itemPendingSelector, itemSelector, likeItem } from './itemSlice'
+import { destroyItem, dislikeItem, getItem, itemPendingSelector, itemSelector, likeItem } from './itemSlice'
 
 const ItemPage = () => {
   const dispatch = useDispatch()
   const { itemId } = useParams()
+  const navigate = useNavigate()
   const currentUser = useSelector(currentUserSelector)
 
   const item = useSelector(itemSelector)
@@ -23,6 +25,11 @@ const ItemPage = () => {
 
   const dislikeHandler = () => {
     dispatch(dislikeItem({ itemId, userId: currentUser?.id }))
+  }
+
+  const deleteItem = async() => {
+    await dispatch(destroyItem(itemId))
+    navigate(routes.COLLECTION + item.collection_id)
   }
 
   useEffect(() => {
@@ -61,6 +68,7 @@ const ItemPage = () => {
           currentUser={currentUser}
           liked={item.liked}
           likesCount={item.Users.length}
+          onDelete={deleteItem}
         />
 
         <Divider />

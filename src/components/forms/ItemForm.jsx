@@ -18,6 +18,19 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
       .required(),
     tags: yup
       .array(),
+
+    additionalFields: yup
+      .array().of(
+        yup.object().shape({
+          label: yup
+            .string()
+            .required(),
+          value: yup
+            .mixed()
+            .required()
+        })
+      )
+
   })
   const [tags, setTags] = useState([])
 
@@ -43,7 +56,8 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
     status,
     isSubmitting,
     setFieldValue,
-    values
+    values,
+    isValid
   } = formik;
 
   useEffect(() => {
@@ -110,7 +124,7 @@ const ItemForm = ({ onClose, createItem, attributeType }) => {
           <Button onClick={onClose} color='error'>
             <FormattedMessage id='app.profile.modal.cancel' />
           </Button>
-          <LoadingButton loading={isSubmitting} type='submit' >
+          <LoadingButton loading={isSubmitting} disabled={!isValid} type='submit' >
             <FormattedMessage id='app.profile.modal.create' />
           </LoadingButton>
         </DialogActions>

@@ -11,7 +11,7 @@ import Comment from './Comment/Comment'
 
 const AZURE_BASE_URL = 'https://collection-sys.azurewebsites.net/'
 const LOCALHOST_BASE_URL = 'http://localhost:1337'
-const socket = io(LOCALHOST_BASE_URL)
+const socket = io(AZURE_BASE_URL)
 
 
 const CommentForm = ({ room, item_id, author_id }) => {

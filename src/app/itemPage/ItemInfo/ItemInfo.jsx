@@ -11,7 +11,7 @@ import { updateItem } from '../itemSlice'
 import ItemToolbar from './ItemToolbar/ItemToolbar'
 import { FormattedMessage } from 'react-intl'
 
-const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit, currentUser, likeHandler, liked, dislikeHandler, likesCount }) => {
+const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit, currentUser, likeHandler, liked, dislikeHandler, likesCount, onDelete }) => {
   const dispatch = useDispatch()
   const ItemSchema = yup.object().shape({
     name: yup
@@ -114,6 +114,7 @@ const ItemInfo = ({ attributes, itemName, itemTags, itemId, canEdit, currentUser
               likeHandler={likeHandler}
               dislikeHandler={dislikeHandler}
               liked={liked}
+              onDelete={onDelete}
             />
           }
 

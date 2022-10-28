@@ -82,7 +82,8 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
     getFieldProps,
     status,
     isSubmitting,
-    setFieldValue
+    setFieldValue,
+    isValid
   } = formik;
 
   return (
@@ -189,7 +190,7 @@ const CollectionForm = ({ onClose, onSnackOpen }) => {
             <Button onClick={onClose} color='error'>
               <FormattedMessage id='app.profile.modal.cancel' />
             </Button>
-            <LoadingButton type='submit' loading={isSubmitting}>
+            <LoadingButton disabled={!isValid} type='submit' loading={isSubmitting}>
               <FormattedMessage id='app.profile.modal.create' />
             </LoadingButton>
           </DialogActions>
