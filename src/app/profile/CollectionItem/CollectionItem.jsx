@@ -11,7 +11,14 @@ const img = 'https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=
 const CollectionItem = ({ name, description, topic, canManage, onDelete, image, id, xs, sm, md }) => {
   return (
     <Grid item xs={xs} sm={sm} md={md}>
-      <Card raised >
+      <Card
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+        raised >
         <CardActionArea
           component={Link}
           to={routes.COLLECTION + id}

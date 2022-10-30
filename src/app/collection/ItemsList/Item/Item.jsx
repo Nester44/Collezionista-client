@@ -21,21 +21,37 @@ const Item = ({ name, tags, fields, onDelete, canEdit, id, xs, sm, md }) => {
     console.log(error);
   }
 
-  const tagElements = tags.map(t =>
+  const tagElements = tags.map(t => 
     <Tag name={t.name} key={'tag' + t.id + name} color={t.color} />
   )
 
   return (
     <Grid item xs={xs} sm={sm} md={md}>
-      <Card variant="outlined">
+      <Card
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+        variant="outlined">
         <CardContent >
           <Typography mb={2} variant="h4">{name}</Typography>
 
           <Box color='text.secondary' sx={{ textAlign: 'left' }}>
 
             <Box mb={1} sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-              <Typography sx={{ userSelect: 'none' }} component='span' color='inherit' variant="body1">Tags: </Typography>
-              {tagElements}
+              <Typography sx={{ userSelect: 'none' }} component='span' color='inherit' variant="body1">
+                <FormattedMessage id='app.collection.tags' />:
+              </Typography>
+              {
+                tagElements.length > 0 ?
+                  tagElements :
+                  <Typography color='text.secondary' >
+                    <FormattedMessage id='app.collection.noTags' />
+                  </Typography>
+
+              }
             </Box>
 
             {
@@ -52,10 +68,11 @@ const Item = ({ name, tags, fields, onDelete, canEdit, id, xs, sm, md }) => {
           <Button onClick={onRedirect} >
           <FormattedMessage id='app.item.more' /> 
           </Button>
-          {canEdit &&
-          <Button color='error' onClick={onDelete} >
-            <FormattedMessage id='app.profile.collection.delete' />
-          </Button>
+          {
+            canEdit &&
+            <Button color='error' onClick={onDelete} >
+              <FormattedMessage id='app.profile.collection.delete' />
+            </Button>
           } 
         </Box>
       </Card>

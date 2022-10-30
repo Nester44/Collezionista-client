@@ -101,8 +101,6 @@ const Collection = () => {
 
                 <Topic topic={topic}  setTopic={setTopic} isEditing={isEditing} userFeatures={userFeatures} />
 
-
-
                 <Description
                   isEditing={isEditing}
                   description={description}

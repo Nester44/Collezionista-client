@@ -1,4 +1,7 @@
 {
+  "app.collection.tags": "Теги",
+  "app.collection.noTags": "нет тегов",
+  "app.collection.additionalFields": "Дополнительные аттрибуты",
   "app.collection.name": "Имя",
   "app.collection.topic": "Тема",
   "app.collection.description": "Описание",

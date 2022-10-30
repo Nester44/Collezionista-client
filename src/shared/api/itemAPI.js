@@ -42,6 +42,11 @@ class ItemAPI {
     return response
   }
 
+  async getItemsByTag(tag) {
+    const response = await API.get(`/items/tag/${tag}`)
+    return response
+  }
+
 }
 
 export default new ItemAPI()

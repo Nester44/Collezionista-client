@@ -4,7 +4,8 @@ const routes = {
   REGISTRATION: '/registration',
   USER: '/user/',
   COLLECTION: '/collection/',
-  ITEM: '/item/'
+  ITEM: '/item/',
+  SEARCH: '/search/'
 }
 
 export default routes

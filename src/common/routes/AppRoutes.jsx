@@ -7,6 +7,7 @@ import Registration from "../../app/auth/registration/Registration";
 import Profile from "../../app/profile/Profile";
 import Collection from "../../app/collection/Collection";
 import ItemPage from "../../app/itemPage/ItemPage";
+import Search from "../../app/search/Search";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -16,6 +17,7 @@ export default function AppRoutes() {
       <Route path={routes.USER + ':userId'} element={<Profile />} />
       <Route path={routes.COLLECTION + ':collectionId'} element={<Collection />} />
       <Route path={routes.ITEM + ':itemId'} element={<ItemPage />} />
+      <Route path={routes.SEARCH + ':tag'} element={<Search />} />
     </Routes>
   );
 }

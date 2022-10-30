@@ -30,14 +30,18 @@ const ProfileDrawer = () => {
       <Box
         sx={{ padding: 3, display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
         <Link component={RouterLink} to={routes.USER + userId}>{isAuth && name}</Link>
-
-        <LocaleToggle />
-        <ModeToggle />
-        {isAuth &&
+        { isAuth ?
           <Button onClick={logoutHandler}>
             log  out
           </Button>
+          :
+          <Button component={RouterLink} to={routes.LOGIN} >
+            Login
+          </Button>
         }
+        <LocaleToggle />
+        <ModeToggle />
+
       </Box>
 
     </Drawer>

@@ -1,4 +1,7 @@
 {
+  "app.collection.tags": "Tags",
+  "app.collection.noTags": "no tags",
+  "app.collection.additionalFields": "Additional attributes",
   "app.collection.name": "Name",
   "app.collection.topic": "Topic",
   "app.collection.description": "Description",
