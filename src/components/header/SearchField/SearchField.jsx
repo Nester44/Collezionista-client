@@ -53,6 +53,7 @@ const SearchField = () => {
   const navigate = useNavigate()
   const searchHandler = (e) => {
     if (e.key === 'Enter') {
+      if (!value) return
       console.log('search with: ', value)
       navigate({
         pathname: routes.SEARCH,
