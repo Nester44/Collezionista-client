@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Divider, Paper, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Divider, Paper, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
@@ -54,10 +54,17 @@ const ItemPage = () => {
   return (
 
       <Container>
+        
 
-        <Box my={2} p={2} component={Paper}>
-
-        <ItemInfo
+        <Box my={2}>
+          <Button onClick={() => navigate(routes.COLLECTION + item.collection_id)}>
+            <FormattedMessage id='app.item.toCollection' />
+          </Button>
+          
+          <Paper
+            p={2}
+          >
+            <ItemInfo
           likeHandler={likeHandler}
           dislikeHandler={dislikeHandler}
           canEdit={canEdit}
@@ -69,13 +76,18 @@ const ItemPage = () => {
           liked={item.liked}
           likesCount={item.Users.length}
           onDelete={deleteItem}
-        />
+          />
 
         <Divider />
 
         <Comments itemId={itemId} itemComments={item.Comments} />
-
+        </Paper>
         </Box>
+
+
+        
+
+
 
       </Container>
 

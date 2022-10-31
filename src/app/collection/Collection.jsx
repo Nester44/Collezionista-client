@@ -1,6 +1,7 @@
-import { Divider, Grid, Paper, Typography } from '@mui/material'
+import { Button, Divider, Grid, Link, Paper, Typography } from '@mui/material'
 import { Box, Container } from '@mui/system'
 import React, { useEffect, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import routes from '../../shared/constants/routes'
@@ -81,6 +82,10 @@ const Collection = () => {
   return (
     <Container maxWidth='xl' >
       <Box my={2} >
+          <Button onClick={() => navigate(routes.USER + collection.user_id)} >
+            <FormattedMessage id='app.collection.toProfile' />
+          </Button>
+
         <Box component={Paper} elevation={2} p={{ xs: 2, md: 4}} >
           <Grid container spacing={4}>
             <Grid 

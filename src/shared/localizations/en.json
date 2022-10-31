@@ -1,4 +1,6 @@
 {
+  "app.collection.toProfile": "To profile",
+  "app.item.toCollection": "To collection",
   "app.delete": "Delete",
   "app.collection.tags": "Tags",
   "app.collection.noTags": "no tags",

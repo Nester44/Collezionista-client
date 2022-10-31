@@ -1,4 +1,6 @@
 {
+  "app.collection.toProfile": "К профилю",
+  "app.item.toCollection": "К коллекции",
   "app.delete": "Удалить",
   "app.collection.tags": "Теги",
   "app.collection.noTags": "нет тегов",
