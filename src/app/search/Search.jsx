@@ -1,21 +1,28 @@
-import { Box, Container } from '@mui/system'
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { Grid, Paper } from '@mui/material'
 import Typography from '@mui/material/Typography'
-import { useEffect } from 'react'
-import { foundItemsSelector, getItemsByTag } from './searchSlice'
-import { Grid, Paper, Stack } from '@mui/material'
+import { Box, Container } from '@mui/system'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
 import Item from '../collection/ItemsList/Item/Item'
+import NotFound from './NotFound/NotFound'
+import { foundItemsSelector, getItemsByQuery, getItemsByTag } from './searchSlice'
 
 const Search = () => {
-  const { tag } = useParams()
+  const [params] = useSearchParams()
+  const value = params.get('value')
+  const byTag = JSON.parse(params.get('byTag'))
+
   const dispatch = useDispatch()
   const items = useSelector(foundItemsSelector)
 
   useEffect(() => {
-    dispatch(getItemsByTag(tag))
-  }, [dispatch, tag])
+    if (byTag) {
+      dispatch(getItemsByTag(value))
+    } else {
+      dispatch(getItemsByQuery(value))
+    }
+  }, [dispatch, value, byTag])
 
   return (
     <Container>
@@ -24,22 +31,27 @@ const Search = () => {
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'baseline',
           gap: 2
         }}>
           <Typography variant="h4">
-            Results of search items by tag: 
+            Results of search items by { byTag ? 'tag' : 'query' }: 
           </Typography>
-          <Typography variant='h3' color='secondary'>{tag}</Typography>
+          <Typography variant='h3' color='secondary'>{value}</Typography>
         </Box>
 
         <Box
           component={Paper}
           elevation={4}
           p={2}
+          minHeight='70vh'
         >
           <Grid container spacing={2} >
             {
+
+              items.length === 0 ? 
+              <NotFound />
+              :
               items.map(i => 
                 <Item
                   key={i.name + i.id}

@@ -5,7 +5,7 @@ const routes = {
   USER: '/user/',
   COLLECTION: '/collection/',
   ITEM: '/item/',
-  SEARCH: '/search/'
+  SEARCH: '/search'
 }
 
 export default routes

@@ -17,7 +17,7 @@ export default function AppRoutes() {
       <Route path={routes.USER + ':userId'} element={<Profile />} />
       <Route path={routes.COLLECTION + ':collectionId'} element={<Collection />} />
       <Route path={routes.ITEM + ':itemId'} element={<ItemPage />} />
-      <Route path={routes.SEARCH + ':tag'} element={<Search />} />
+      <Route path={routes.SEARCH} element={<Search />} />
     </Routes>
   );
 }

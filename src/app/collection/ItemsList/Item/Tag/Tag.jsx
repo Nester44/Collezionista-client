@@ -1,6 +1,6 @@
 import { Chip } from '@mui/material'
-import { Link } from 'react-router-dom'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import routes from '../../../../../shared/constants/routes'
 
 const getSize = (size) => {
@@ -9,10 +9,11 @@ const getSize = (size) => {
 }
 
 const Tag = ({ name, color, size }) => {
+  const navigate = useNavigate()
+
   return (
     <Chip
-      component={Link}
-      to={routes.SEARCH + name}
+      onClick={() => navigate({ pathname: routes.SEARCH, search: `?value=${name}&byTag=true` })}
       sx={{
         cursor: 'pointer'
       }}

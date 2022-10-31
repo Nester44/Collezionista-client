@@ -11,7 +11,7 @@ const Burger = () => {
   const dispatch = useDispatch()
   return (
     <Box sx={{
-      display: { sm: 'none' }
+      display: { md: 'none' }
     }}>
       <IconButton onClick={() => dispatch(toggleDrawer())}>
         <MenuIcon />

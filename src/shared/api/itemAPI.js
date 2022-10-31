@@ -47,6 +47,11 @@ class ItemAPI {
     return response
   }
 
+  async getItemsByQuery(value) {
+    const response = await API.get(`/items/search/${value}`)
+    return response
+  }
+
 }
 
 export default new ItemAPI()

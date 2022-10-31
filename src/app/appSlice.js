@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   locale: localStorage.getItem('locale') || 'en',
-  mode: localStorage.getItem('mode') || 'light',
+  mode: localStorage.getItem('mode') || 'dark',
   isDrawerOpen: false
 }
 

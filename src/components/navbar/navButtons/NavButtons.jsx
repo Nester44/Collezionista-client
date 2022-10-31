@@ -12,7 +12,7 @@ const NavButtons = () => {
   const isAuth = useSelector(isAuthSelector)
   return (
     <Box sx={{
-      display: { xs: 'none', sm: "flex" },
+      display: { xs: 'none', md: "flex" },
       gap: 2
     }}
       onClick={() => console.log}
