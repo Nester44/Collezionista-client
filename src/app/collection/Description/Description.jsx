@@ -5,7 +5,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styles from './Description.module.css';
 
-const Description = ({ isEditing, description, changeDescription, userFeatures, onChange, turnEditing, canEdit }) => {
+const Description = ({ isEditing, description, changeDescription, userFeatures, onChange, turnEditing, canEdit, onDelete }) => {
   const theme = useTheme()
   const mode = theme.palette.mode 
   
@@ -55,6 +55,9 @@ const Description = ({ isEditing, description, changeDescription, userFeatures, 
                 <FormattedMessage id='app.edit' /> 
               </Button>
           }
+          <Button color='error' onClick={onDelete}>
+            <FormattedMessage id='app.delete' />
+          </Button>
         </Box>
       }
 

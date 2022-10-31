@@ -2,8 +2,10 @@ import { Divider, Grid, Paper, Typography } from '@mui/material'
 import { Box, Container } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import routes from '../../shared/constants/routes'
 import { currentUserSelector } from '../auth/auth-slice'
+import { deleteCollection } from '../profile/profileSlice'
 import { collectionSelector, createItem, deleteItem, getCollection, updateCollection } from './collectionSlice'
 import Description from './Description/Description'
 import ItemDialog from './ItemDialog/ItemDialog'
@@ -25,6 +27,7 @@ const checkChanges = (collection, newCollection) => {
 const Collection = () => {
   const { collectionId } = useParams()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const currentUser = useSelector(currentUserSelector)
   const collection = useSelector(collectionSelector)
@@ -48,7 +51,10 @@ const Collection = () => {
     fetchCollection()
   }, [dispatch, collectionId, collection?.description])
 
-
+  const destroyCollection = async(id) => {
+    await dispatch(deleteCollection(id))
+    navigate(routes.USER + collection.user_id)
+  }
 
   let userFeatures = { sx: {} }
 
@@ -109,6 +115,7 @@ const Collection = () => {
                   canEdit={canEdit}
                   onChange={(value) => setDescription(value)}
                   turnEditing={() => setIsEditing(true)}
+                  onDelete={() => destroyCollection(collectionId)}
                 />
 
               </Box>

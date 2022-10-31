@@ -1,4 +1,5 @@
 {
+  "app.delete": "Удалить",
   "app.collection.tags": "Теги",
   "app.collection.noTags": "нет тегов",
   "app.collection.additionalFields": "Дополнительные аттрибуты",

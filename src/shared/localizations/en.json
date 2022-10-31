@@ -1,4 +1,5 @@
 {
+  "app.delete": "Delete",
   "app.collection.tags": "Tags",
   "app.collection.noTags": "no tags",
   "app.collection.additionalFields": "Additional attributes",
