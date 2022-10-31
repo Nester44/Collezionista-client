@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material'
+import { CircularProgress, Grid, Paper } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Box, Container } from '@mui/system'
 import React, { useEffect } from 'react'
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import Item from '../collection/ItemsList/Item/Item'
 import NotFound from './NotFound/NotFound'
-import { foundItemsSelector, getItemsByQuery, getItemsByTag } from './searchSlice'
+import { foundItemsSelector, getItemsByQuery, getItemsByTag, searchPendingSelector } from './searchSlice'
 
 const Search = () => {
   const [params] = useSearchParams()
@@ -15,6 +15,7 @@ const Search = () => {
 
   const dispatch = useDispatch()
   const items = useSelector(foundItemsSelector)
+  const isPending = useSelector(searchPendingSelector)
 
   useEffect(() => {
     if (byTag) {
@@ -45,28 +46,34 @@ const Search = () => {
           elevation={4}
           p={2}
           minHeight='70vh'
-        >
+        > 
+        {
+          isPending ?
+            <CircularProgress />
+          :
           <Grid container spacing={2} >
-            {
+          {
 
-              items.length === 0 ? 
-              <NotFound />
-              :
-              items.map(i => 
-                <Item
-                  key={i.name + i.id}
-                  name={i.name}
-                  tags={i.Tags}
-                  fields={i.additional_attributes}
-                  canEdit={false}
-                  id={i.id}
-                  xs={12}
-                  sm={6}
-                  md={4}
-                />
-              )
-            }
-          </Grid>
+            items.length === 0 ? 
+            <NotFound />
+            :
+            items.map(i => 
+              <Item
+                key={i.name + i.id}
+                name={i.name}
+                tags={i.Tags}
+                fields={i.additional_attributes}
+                canEdit={false}
+                id={i.id}
+                xs={12}
+                sm={6}
+                md={4}
+              />
+            )
+          }
+        </Grid>
+        }
+
         </Box>
       </Box>
     </Container>

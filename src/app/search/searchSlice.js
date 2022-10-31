@@ -14,16 +14,27 @@ const searchSlice = createSlice({
   name: 'search',
   initialState,
   extraReducers: (builder) => {
+
+    builder.addCase(getItemsByQuery.pending, (state) => {
+      state.pending = true
+    })
+    builder.addCase(getItemsByTag.pending, (state) => {
+      state.pending = true
+    })
+
     builder.addCase(getItemsByTag.fulfilled, (state, action) => {
       if (action.payload?.Items) {
         state.items = action.payload.Items
       } else {
         state.items = []
       }
+      state.pending = false
+
     })
 
     builder.addCase(getItemsByQuery.fulfilled, (state, action) => {
       state.items = action.payload
+      state.pending = false
     })
   }
 })
