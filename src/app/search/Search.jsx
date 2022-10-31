@@ -32,13 +32,14 @@ const Search = () => {
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'baseline',
+          alignItems: {xs: 'center', sm: 'baseline'},
+          flexDirection: { xs: 'column', sm: 'row' },
           gap: 2
         }}>
-          <Typography variant="h4">
+          <Typography variant="h6">
             Results of search items by { byTag ? 'tag' : 'query' }: 
           </Typography>
-          <Typography variant='h3' color='secondary'>{value}</Typography>
+          <Typography variant='h4' color='secondary'>{value}</Typography>
         </Box>
 
         <Box
