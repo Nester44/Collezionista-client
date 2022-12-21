@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Collezionista-client/static/css/main.af22ffc2.css",
-    "main.js": "/Collezionista-client/static/js/main.1dd2dc57.js",
+    "main.js": "/Collezionista-client/static/js/main.3f973e46.js",
     "static/media/logo.png": "/Collezionista-client/static/media/logo.444f940ea7efdd8f7f9e.png",
     "index.html": "/Collezionista-client/index.html",
     "main.af22ffc2.css.map": "/Collezionista-client/static/css/main.af22ffc2.css.map",
-    "main.1dd2dc57.js.map": "/Collezionista-client/static/js/main.1dd2dc57.js.map"
+    "main.3f973e46.js.map": "/Collezionista-client/static/js/main.3f973e46.js.map"
   },
   "entrypoints": [
     "static/css/main.af22ffc2.css",
-    "static/js/main.1dd2dc57.js"
+    "static/js/main.3f973e46.js"
   ]
 }
